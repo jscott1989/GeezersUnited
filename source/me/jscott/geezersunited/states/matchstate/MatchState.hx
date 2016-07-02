@@ -10,6 +10,8 @@ import me.jscott.geezersunited.Reg;
 class MatchState extends FlxState {
 
 	public var movingPlayer:Player;
+	public var movingXOffset:Float;
+	public var movingYOffset:Float;
 
 	override public function create():Void {
 		super.create();
@@ -43,8 +45,10 @@ class MatchState extends FlxState {
 
 	}
 
-	public function startMoving(player:Player) {
+	public function startMoving(player:Player, xOffset:Float, yOffset:Float) {
 		movingPlayer = player;
+		movingXOffset = xOffset;
+		movingYOffset = yOffset;
 	}
 
 	public function stopMoving() {
@@ -58,7 +62,7 @@ class MatchState extends FlxState {
 			stopMoving();
 		} else if (movingPlayer != null) {
 			// Move him if needed...
-			movingPlayer.addPoint(new FlxPoint(FlxG.mouse.x, FlxG.mouse.y));
+			movingPlayer.addPoint(new FlxPoint(FlxG.mouse.x - movingXOffset, FlxG.mouse.y - movingYOffset));
 		}
 	}
 }

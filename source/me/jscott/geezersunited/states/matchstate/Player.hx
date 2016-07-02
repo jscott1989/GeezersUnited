@@ -8,6 +8,7 @@ import flixel.util.FlxColor;
 import me.jscott.geezersunited.Reg;
 import me.jscott.Utils;
 import flixel.text.FlxText;
+import flixel.FlxG;
 
 class Player extends FlxSprite {
 
@@ -27,7 +28,9 @@ class Player extends FlxSprite {
 
 		// TODO: This needs to support right mouse presses too...
 		FlxMouseEventManager.add(this, function(item:FlxSprite) {
-            matchState.startMoving(this);
+            var xOffset = FlxG.mouse.x - this.x;
+            var yOffset = FlxG.mouse.y - this.y;
+            matchState.startMoving(this, xOffset, yOffset);
         });
 
         matchState.add(movementText);
