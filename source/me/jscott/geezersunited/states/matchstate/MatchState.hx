@@ -9,6 +9,7 @@ class MatchState extends FlxState {
 		super.create();
 
 		var PLAYER_WIDTH = 64;
+		var GOAL_HEIGHT = 200;
 
 		// Standard Football Pitch dimensions are roughly 5/2 I think
 		var PITCH_WIDTH = 1024;
@@ -17,8 +18,13 @@ class MatchState extends FlxState {
 		pitch.makeGraphic(PITCH_WIDTH, PITCH_HEIGHT, FlxColor.GREEN);
 		add(pitch);
 
+		var goal1 = new Goal(0, 768 / 2 - (GOAL_HEIGHT / 2));
+		var goal2 = new Goal(PITCH_WIDTH - 32, 768 / 2 - (GOAL_HEIGHT / 2));
+		add(goal1);
+		add(goal2);
+
 		var colors = [FlxColor.RED, FlxColor.BLUE];
-		var startingPositions = [[20,-32], [140,-170], [140,100], [320,-130], [320,60]];
+		var startingPositions = [[40,-32], [140,-170], [140,100], [320,-130], [320,60]];
 
 		for (team in 0...2) {
 			for (player in 0...5) {
