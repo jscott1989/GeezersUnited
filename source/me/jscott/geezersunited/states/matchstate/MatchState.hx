@@ -4,9 +4,13 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.util.FlxColor;
+import flixel.math.FlxPoint;
 import me.jscott.geezersunited.Reg;
 
 class MatchState extends FlxState {
+
+	public var movingPlayer:Player;
+
 	override public function create():Void {
 		super.create();
 
@@ -19,7 +23,7 @@ class MatchState extends FlxState {
 		add(goal1);
 		add(goal2);
 
-		var ball = new Ball(Reg.PITCH_WIDTH / 2 - Reg.BALL_WIDTH, FlxG.height / 2 - Reg.BALL_HEIGHT);
+		var ball = new Ball(pitch.x + Reg.PITCH_WIDTH / 2 - (Reg.BALL_WIDTH / 2), FlxG.height / 2 - (Reg.BALL_HEIGHT / 2));
 		add(ball);
 
 		var colors = [FlxColor.RED, FlxColor.BLUE];
@@ -32,14 +36,29 @@ class MatchState extends FlxState {
 				if (team == 1) {
 					x = Reg.PITCH_WIDTH - x - Reg.PLAYER_WIDTH;
 				}
-				var player = new Player(pitch.x + x, y, colors[team]);
+				var player = new Player(this, pitch.x + x, y, colors[team]);
 				add(player);
 			}
 		}
 
 	}
 
+	public function startMoving(player:Player) {
+		movingPlayer = player;
+	}
+
+	public function stopMoving() {
+		movingPlayer = null;
+	}
+
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
+
+		if (movingPlayer != null && !FlxG.mouse.pressed) {
+			stopMoving();
+		} else if (movingPlayer != null) {
+			// Move him if needed...
+			movingPlayer.addPoint(new FlxPoint(FlxG.mouse.x, FlxG.mouse.y));
+		}
 	}
 }
