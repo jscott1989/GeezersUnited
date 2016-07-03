@@ -13,6 +13,10 @@ class MatchState extends FlxState {
 	public var movingXOffset:Float;
 	public var movingYOffset:Float;
 
+	var tacticsOverlay: TacticsOverlay;
+
+	public var players = new Array<Player>();
+
 	override public function create():Void {
 		super.create();
 
@@ -24,6 +28,10 @@ class MatchState extends FlxState {
 		var goal2 = new Goal(pitch.x + Reg.PITCH_WIDTH, FlxG.height / 2 - (Reg.GOAL_HEIGHT / 2));
 		add(goal1);
 		add(goal2);
+
+		tacticsOverlay = new TacticsOverlay(this, pitch.x, pitch.y);
+		add(tacticsOverlay);
+
 
 		var ball = new Ball(pitch.x + Reg.PITCH_WIDTH / 2 - (Reg.BALL_WIDTH / 2), FlxG.height / 2 - (Reg.BALL_HEIGHT / 2));
 		add(ball);
@@ -39,6 +47,7 @@ class MatchState extends FlxState {
 					x = Reg.PITCH_WIDTH - x - Reg.PLAYER_WIDTH;
 				}
 				var player = new Player(this, pitch.x + x, y, colors[team]);
+				players.push(player);
 				add(player);
 			}
 		}

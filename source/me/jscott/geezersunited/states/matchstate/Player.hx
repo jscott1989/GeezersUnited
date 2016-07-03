@@ -30,6 +30,11 @@ class Player extends FlxSprite {
 		FlxMouseEventManager.add(this, function(item:FlxSprite) {
             var xOffset = FlxG.mouse.x - this.x;
             var yOffset = FlxG.mouse.y - this.y;
+            this.points = new Array<FlxPoint>();
+            if (this.movingTween != null) {
+                this.movingTween.cancel();
+                this.movingTween = null;
+            }
             matchState.startMoving(this, xOffset, yOffset);
         });
 
@@ -67,7 +72,7 @@ class Player extends FlxSprite {
         Utils.bringToFront(matchState.members, movementText, this);
     }
 
-    var points = new Array<FlxPoint>();
+    public var points = new Array<FlxPoint>();
     /**
      * Add a position for this player to run to
      */
