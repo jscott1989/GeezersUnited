@@ -18,10 +18,16 @@ class TacticsOverlay extends FlxSprite {
 	override public function update(elapsed:Float) {
 		this.fill(FlxColor.TRANSPARENT);
 		for (player in matchState.players) {
+			// Draw Movement
 			var nextPoint = new FlxPoint(player.x, player.y);
 	        for (point in player.points) {
 	            this.drawLine(nextPoint.x - this.x + Reg.PLAYER_WIDTH / 2, nextPoint.y - this.y + Reg.PLAYER_HEIGHT / 2, point.x - this.x + Reg.PLAYER_WIDTH / 2, point.y - this.y + Reg.PLAYER_HEIGHT / 2);
 	            nextPoint = point;
+	        }
+
+	        // Draw kicking
+	        if (player.kickingTo != null) {
+	        	this.drawLine(player.x - this.x + Reg.PLAYER_WIDTH / 2, player.y - this.y + Reg.PLAYER_HEIGHT / 2, player.kickingTo.x - this.x + Reg.PLAYER_WIDTH / 2, player.kickingTo.y - this.y + Reg.PLAYER_HEIGHT / 2, { color: FlxColor.RED, thickness: 3 });
 	        }
 		}
     }

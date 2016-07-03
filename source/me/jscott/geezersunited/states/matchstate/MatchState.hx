@@ -10,8 +10,9 @@ import me.jscott.geezersunited.Reg;
 class MatchState extends FlxState {
 
 	public var movingPlayer:Player;
-	public var movingXOffset:Float;
-	public var movingYOffset:Float;
+	public var kickingPlayer:Player;
+	public var xOffset:Float;
+	public var yOffset:Float;
 
 	var tacticsOverlay: TacticsOverlay;
 
@@ -56,12 +57,22 @@ class MatchState extends FlxState {
 
 	public function startMoving(player:Player, xOffset:Float, yOffset:Float) {
 		movingPlayer = player;
-		movingXOffset = xOffset;
-		movingYOffset = yOffset;
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
+	}
+
+	public function startKicking(player:Player, xOffset:Float, yOffset:Float) {
+		kickingPlayer = player;
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
 	}
 
 	public function stopMoving() {
 		movingPlayer = null;
+	}
+
+	public function stopKicking() {
+		kickingPlayer = null;
 	}
 
 	override public function update(elapsed:Float):Void {
@@ -71,7 +82,12 @@ class MatchState extends FlxState {
 			stopMoving();
 		} else if (movingPlayer != null) {
 			// Move him if needed...
-			movingPlayer.addPoint(new FlxPoint(FlxG.mouse.x - movingXOffset, FlxG.mouse.y - movingYOffset));
+			movingPlayer.addPoint(new FlxPoint(FlxG.mouse.x - xOffset, FlxG.mouse.y - yOffset));
+		} else if (kickingPlayer != null && !FlxG.mouse.pressedRight) {
+			stopKicking();
+		} else if (kickingPlayer != null) {
+			// Adjust kicking angle
+			kickingPlayer.setKickingTo(new FlxPoint(FlxG.mouse.x - xOffset, FlxG.mouse.y - yOffset));
 		}
 	}
 }
