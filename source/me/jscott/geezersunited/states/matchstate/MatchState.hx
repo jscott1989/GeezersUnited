@@ -18,6 +18,7 @@ class MatchState extends FlxState {
 	var tacticsOverlay: TacticsOverlay;
 
 	public var ball:Ball;
+	public var teams = new Array<Array<Player>>();
 	public var players = new Array<Player>();
 
 	public var timeRemaining:Float;
@@ -64,6 +65,9 @@ class MatchState extends FlxState {
 
 		var colors = [FlxColor.RED, FlxColor.BLUE];
 
+		teams.push(new Array<Player>());
+		teams.push(new Array<Player>());
+
 		for (team in 0...2) {
 			for (player in 0...5) {
 				var x = startingPositions[player][0];
@@ -73,6 +77,7 @@ class MatchState extends FlxState {
 				}
 				var player = new Player(this, pitch.x + x, y, colors[team]);
 				players.push(player);
+				teams[team].push(player);
 				add(player);
 			}
 		}
@@ -107,6 +112,18 @@ class MatchState extends FlxState {
 		}
 		ball.x = pitch.x + Reg.PITCH_WIDTH / 2 - (Reg.BALL_WIDTH / 2);
 		ball.y = FlxG.height / 2 - (Reg.BALL_HEIGHT / 2);
+
+		for (team in 0...2) {
+			for (player in 0...5) {
+				var x = startingPositions[player][0];
+				var y = (FlxG.height / 2) + startingPositions[player][1];
+				if (team == 1) {
+					x = Reg.PITCH_WIDTH - x - Reg.PLAYER_WIDTH;
+				}
+				teams[team][player].x = pitch.x + x;
+				teams[team][player].y = y;
+			}
+		}
 	}
 
 	public function score(side:Int) {
