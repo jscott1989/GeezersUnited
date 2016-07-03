@@ -10,8 +10,8 @@ import flixel.text.FlxText;
 
 class MatchState extends FlxState {
 
-	public var movingPlayer:Player;
-	public var kickingPlayer:Player;
+	public var moving:Movable;
+	public var kicking:Movable;
 	public var xOffset:Float;
 	public var yOffset:Float;
 
@@ -85,24 +85,24 @@ class MatchState extends FlxState {
 		timeRemaining = 180;
 	}
 
-	public function startMoving(player:Player, xOffset:Float, yOffset:Float) {
-		movingPlayer = player;
+	public function startMoving(moving:Movable, xOffset:Float, yOffset:Float) {
+		this.moving = moving;
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
 	}
 
-	public function startKicking(player:Player, xOffset:Float, yOffset:Float) {
-		kickingPlayer = player;
+	public function startKicking(kicking:Movable, xOffset:Float, yOffset:Float) {
+		this.kicking = kicking;
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
 	}
 
 	public function stopMoving() {
-		movingPlayer = null;
+		moving = null;
 	}
 
 	public function stopKicking() {
-		kickingPlayer = null;
+		kicking = null;
 	}
 
 	public function resetState() {
@@ -144,7 +144,11 @@ class MatchState extends FlxState {
 		timeRemaining -= elapsed;
 		var minutes = Std.int(timeRemaining/60);
 		var seconds = Std.int(timeRemaining - minutes * 60);
-		timeText.text = Std.string(minutes) + ":" + Std.string(seconds);
+		var secondsText = Std.string(seconds);
+		if (secondsText.length == 1) {
+			secondsText = "0" + secondsText;
+		}
+		timeText.text = Std.string(minutes) + ":" + secondsText;
 
 
 		if (FlxG.overlap(ball, goal1)) {
@@ -153,16 +157,16 @@ class MatchState extends FlxState {
 			score(1);
 		}
 
-		if (movingPlayer != null && !FlxG.mouse.pressed) {
+		if (moving != null && !FlxG.mouse.pressed) {
 			stopMoving();
-		} else if (movingPlayer != null) {
+		} else if (moving != null) {
 			// Move him if needed...
-			movingPlayer.addPoint(new FlxPoint(FlxG.mouse.x - xOffset, FlxG.mouse.y - yOffset));
-		} else if (kickingPlayer != null && !FlxG.mouse.pressedRight) {
+			moving.addPoint(new FlxPoint(FlxG.mouse.x - xOffset, FlxG.mouse.y - yOffset));
+		} else if (kicking != null && !FlxG.mouse.pressedRight) {
 			stopKicking();
-		} else if (kickingPlayer != null) {
+		} else if (kicking != null) {
 			// Adjust kicking angle
-			kickingPlayer.setKickingTo(new FlxPoint(FlxG.mouse.x - xOffset, FlxG.mouse.y - yOffset));
+			kicking.setKickingTo(new FlxPoint(FlxG.mouse.x - xOffset, FlxG.mouse.y - yOffset));
 		}
 	}
 }

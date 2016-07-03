@@ -11,7 +11,7 @@ import me.jscott.Utils;
 import me.jscott.geezersunited.Reg;
 import flixel.input.mouse.FlxMouseButton;
 
-class Player extends FlxSprite {
+class Player extends Movable {
 
     // TODO: We'll need to support actual stats that change by player
     // They can be 1-100
@@ -19,53 +19,46 @@ class Player extends FlxSprite {
     public var POWER_STAT = 20;
     public var FLEXIBILITY_STAT = 20;
 
-    public var points = new Array<FlxPoint>();
-    public var kickingTo:FlxPoint;
-
-
     var kickingProgress:Float = 0.0;
-
-    var matchState: MatchState;
     var movingTween: FlxTween;
 
-    var movementText = new FlxText(0, 0, Reg.PLAYER_WIDTH, "", 15);
-
-	public function new(matchState: MatchState, x: Float, y: Float, color: FlxColor) {
-		super(x, y);
-        this.matchState = matchState;
-		makeGraphic(Reg.PLAYER_WIDTH, Reg.PLAYER_HEIGHT, color);
-
-		// TODO: This needs to support right mouse presses too...
-		FlxMouseEventManager.add(this, function(item:FlxSprite) {
-            var xOffset = FlxG.mouse.x - this.x;
-            var yOffset = FlxG.mouse.y - this.y;
-            this.kickingTo = null;
-            this.points = new Array<FlxPoint>();
-            if (this.movingTween != null) {
-                this.movingTween.cancel();
-                this.movingTween = null;
-            }
-            if (FlxG.mouse.pressed) {
-                // Left button, start moving
-                matchState.startMoving(this, xOffset, yOffset);
-            } else {
-                // Right button, start kicking
-                matchState.startKicking(this, xOffset, yOffset);
-            }
-        },null, null, null, false, true, true, [FlxMouseButtonID.LEFT, FlxMouseButtonID.RIGHT]);
-
-        movementText.alignment = "center";
-        matchState.add(movementText);
-	}
-
-    public function calculateTravelTime(source:FlxPoint, target:FlxPoint) {
-        var distance = source.distanceTo(target);
-        var distanceNormalized = distance * 0.03; // MAGIC NUMBER
-        return distanceNormalized * ((100 - SPEED_STAT) / 100);
+    override public function getSpeed() {
+        return SPEED_STAT;
     }
 
-    public function move() {
-        if (movingTween == null && points.length > 0) {
+    override public function getPower() {
+        return POWER_STAT;
+    }
+
+    override public function getFlexibility() {
+        return FLEXIBILITY_STAT;
+    }
+
+    override public function mousePressed(item:FlxSprite) {
+        super.mousePressed(item);
+
+        if (this.movingTween != null) {
+            this.movingTween.cancel();
+            this.movingTween = null;
+        }
+    }
+
+	public function new(matchState: MatchState, x: Float, y: Float, color: FlxColor) {
+		super(matchState, x, y, color);
+		makeGraphic(Reg.PLAYER_WIDTH, Reg.PLAYER_HEIGHT, color);
+	}
+
+	override public function update(elapsed:Float) {
+        super.update(elapsed);
+
+        if (kickingTo != null && matchState.kicking == null) {
+
+            if (kickingProgress >= calculatePowerTime(kickingTo)) {
+                kick(kickingTo);
+            } else {
+                kickingProgress += elapsed;
+            }
+        } else if (kickingTo == null && movingTween == null && points.length > 0) {
             var nextPoint = points.shift();
             while (nextPoint.x == x && nextPoint.y == y) {
                 if (points.length == 0) {
@@ -76,51 +69,21 @@ class Player extends FlxSprite {
 
             movingTween = FlxTween.tween(this, { x: nextPoint.x, y: nextPoint.y }, calculateTravelTime(new FlxPoint(x, y), nextPoint), {onComplete: function(tween:FlxTween) {
                 movingTween = null;
-                move();
             }});
-        }
-    }
+        } else if (movingTween == null && points.length == 0 && kickingTo == null && matchState.moving != this && nextMovable != null && Math.abs(nextMovable.x - x) < 2 && Math.abs(nextMovable.y - y) < 2) {
+            // merge the nextMovable
+            points = nextMovable.points;
+            kickingTo = nextMovable.kickingTo;
 
-	override public function update(elapsed:Float) {
-        recalculateTime();
-
-        movementText.x = x;
-        movementText.y = y + (Reg.PLAYER_HEIGHT / 2) - (movementText.height / 2);
-        Utils.bringToFront(matchState.members, movementText, this);
-
-
-        if (kickingTo != null && matchState.kickingPlayer == null) {
-            kickingProgress += elapsed;
-
-            if (kickingProgress >= calculatePowerTime(kickingTo)) {
-                kick(kickingTo);
+            nextMovable.remove(false);
+            nextMovable = nextMovable.nextMovable;
+            if (nextMovable != null) {
+                nextMovable.previousMovable = this;
             }
         }
     }
 
-    /**
-     * Add a position for this player to run to
-     */
-    public function addPoint(point:FlxPoint) {
-        points.push(point);
-        move();
-    }
-
-    function calculatePowerTime(point:FlxPoint) {
-        // Calculate the time
-        // Bigger distance + Bigger power = longer
-        // Bigger flexibility = shorter
-        var distance = new FlxPoint(x, y).distanceTo(kickingTo);
-        var distanceNormalized = distance * 0.03; // MAGIC NUMBER
-        return distanceNormalized * (POWER_STAT/100) * (1.0 - (FLEXIBILITY_STAT / 100));
-    }
-
-    function calculateBallTravelTime(point:FlxPoint) {
-        // Calculate the time the ball will take to reach the target
-        return matchState.ball.calculateTravelTime(new FlxPoint(x, y), kickingTo, POWER_STAT);
-    }
-
-    public function recalculateTime() {
+    override public function recalculateTime() {
         // Calculate and display the amount of time to execute the queued movement
 
         // First we calculate the total amount of travel time
@@ -130,32 +93,34 @@ class Player extends FlxSprite {
             // Kicking
             movementText.text = Std.string(Std.int(calculatePowerTime(kickingTo) - kickingProgress) + 1) + "/" + Std.string(Std.int(calculateBallTravelTime(kickingTo)));
         } else {
-            var travelTime:Float = 0;
-            for (point in points) {
-                travelTime += calculateTravelTime(nextPoint, point);
-                nextPoint = point;
+            movementText.text = "";
+        }
+
+        var travelTime:Float = 0;
+        for (point in points) {
+            travelTime += calculateTravelTime(nextPoint, point);
+            nextPoint = point;
+        }
+        
+        if (travelTime > 0) {
+            if (kickingTo != null) {
+                 movementText.text += "\n";
             }
-            if (travelTime == 0) {
-                movementText.text = "";
-            } else {
-                movementText.text = Std.string(Std.int(travelTime) + 1);
-            }
+            movementText.text += Std.string(Std.int(travelTime) + 1);
         }
     }
 
-    public function setKickingTo(point:FlxPoint) {
-        kickingTo = point;
+    override public function setKickingTo(point:FlxPoint) {
+        super.setKickingTo(point);
         kickingProgress = 0.0;
     }
 
     function kick(point:FlxPoint) {
-
         // First figure out if we're close enough to the ball to kick it
         if (new FlxPoint(x + Reg.PLAYER_WIDTH / 2, y + Reg.PLAYER_HEIGHT / 2).distanceTo(new FlxPoint(matchState.ball.x + Reg.BALL_WIDTH / 2, matchState.ball.y + Reg.BALL_HEIGHT / 2)) < Reg.BALL_KICK_DISTANCE) {
             matchState.ball.kick(kickingTo, POWER_STAT);
+            kickingTo = null;
+            kickingProgress = 0.0;
         }
-
-        kickingTo = null;
-        kickingProgress = 0.0;
     }
 }
