@@ -122,6 +122,8 @@ class MatchState extends FlxState {
 				}
 				teams[team][player].x = pitch.x + x;
 				teams[team][player].y = y;
+
+				teams[team][player].resetState();
 			}
 		}
 	}

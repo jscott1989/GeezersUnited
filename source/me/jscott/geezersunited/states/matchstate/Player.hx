@@ -22,6 +22,20 @@ class Player extends Movable {
     var kickingProgress:Float = 0.0;
     var movingTween: FlxTween;
 
+    public function resetState() {
+        if (this.movingTween != null) {
+            this.movingTween.cancel();
+            this.movingTween = null;
+        }
+        kickingTo = null;
+        points = new Array<FlxPoint>();
+        kickingProgress = 0.0;
+        if (nextMovable != null) {
+            nextMovable.remove();
+            nextMovable = null;
+        }
+    }
+
     override public function getSpeed() {
         return SPEED_STAT;
     }
