@@ -89,7 +89,7 @@ class Player extends FlxSprite {
         Utils.bringToFront(matchState.members, movementText, this);
 
 
-        if (kickingTo != null) {
+        if (kickingTo != null && matchState.kickingPlayer == null) {
             kickingProgress += elapsed;
 
             if (kickingProgress >= calculatePowerTime(kickingTo)) {
@@ -117,7 +117,7 @@ class Player extends FlxSprite {
 
     function calculateBallTravelTime(point:FlxPoint) {
         // Calculate the time the ball will take to reach the target
-        return 2.0;
+        return matchState.ball.calculateTravelTime(new FlxPoint(x, y), kickingTo, POWER_STAT);
     }
 
     public function recalculateTime() {
@@ -149,6 +149,12 @@ class Player extends FlxSprite {
     }
 
     function kick(point:FlxPoint) {
+
+        // First figure out if we're close enough to the ball to kick it
+        if (new FlxPoint(x + Reg.PLAYER_WIDTH / 2, y + Reg.PLAYER_HEIGHT / 2).distanceTo(new FlxPoint(matchState.ball.x + Reg.BALL_WIDTH / 2, matchState.ball.y + Reg.BALL_HEIGHT / 2)) < Reg.BALL_KICK_DISTANCE) {
+            matchState.ball.kick(kickingTo, POWER_STAT);
+        }
+
         kickingTo = null;
         kickingProgress = 0.0;
     }
