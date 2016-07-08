@@ -1,37 +1,29 @@
 package me.jscott.geezersunited.states.matchstate;
 
 import flixel.FlxSprite;
+import flixel.FlxG;
 import flixel.util.FlxColor;
 import me.jscott.geezersunited.Reg;
 import flixel.math.FlxPoint;
+import flixel.math.FlxVelocity;
 import flixel.tweens.FlxTween;
+import flixel.addons.nape.FlxNapeSprite;
+import flixel.util.FlxSpriteUtil;
+import flixel.addons.nape.FlxNapeSpace;
 
-class Ball extends FlxSprite {
-
-	public var movingTween:FlxTween;
-
-	public function calculateTravelTime(source:FlxPoint, target:FlxPoint, power:Int) {
-        var distance = source.distanceTo(target);
-        var distanceNormalized = distance * 0.03; // MAGIC NUMBER
-        return distanceNormalized * ((100 - power) / 100);
-    }
-
-	public function kick(point:FlxPoint, power:Int) {
-		if (movingTween != null) {
-			movingTween.cancel();
-			movingTween = null;
-		}
-		movingTween = FlxTween.tween(this, { x: point.x, y: point.y }, calculateTravelTime(new FlxPoint(x, y), point, power), {onComplete: function(tween:FlxTween) {
-            movingTween = null;
-        }});
-	}
+class Ball extends FlxNapeSprite {
 
 	public function new(x: Float, y: Float) {
 		super(x, y);
-		makeGraphic(Reg.BALL_WIDTH, Reg.BALL_HEIGHT, FlxColor.ORANGE);
+
+        makeGraphic(Reg.BALL_WIDTH, Reg.BALL_HEIGHT, FlxColor.TRANSPARENT);
+        FlxSpriteUtil.drawCircle(this, Std.int(Reg.BALL_WIDTH / 2), Std.int(Reg.BALL_WIDTH / 2), Std.int(Reg.BALL_WIDTH / 2), FlxColor.ORANGE);
+        setSize(Reg.BALL_WIDTH, Reg.BALL_HEIGHT);
+        createCircularBody(Reg.BALL_WIDTH / 2);
+
+        setBodyMaterial(0.5, 0.5, 0.5, 2);
+        body.space = FlxNapeSpace.space;
+        physicsEnabled = true;
+		setDrag(0.99, 0.99);
 	}
-
-	override public function update(elapsed:Float) {
-
-    }
 }

@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"PLAY",
+				"PLAYER_HEIGHT"
+			],
+			[
+				"PLA",
+				"PLAYER_WIDTH"
+			],
+			[
 				"perioidc_task",
 				"periodic_task_inner"
 			],
@@ -105,14 +113,21 @@
 	[
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Ball.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Goal.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/Project.xml",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/PlayerEndMovement.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Movable.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/TacticsOverlay.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/Reg.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/Utils.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/Utils.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/CanMove.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Goal.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/playstate/Player.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/Main.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/MenuState.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/playstate/MatchState.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/playstate/Side.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/Project.xml",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/AssetPaths.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/PlayState.hx",
 		"/Users/jonathan/Documents/Programming/python/happening/src/assets/js/blocks.js",
@@ -223,18 +238,11 @@
 		"/Users/jonathan/Documents/Programming/python/happening/src/templates/staff/_email_preview.html",
 		"/Users/jonathan/Documents/Programming/python/happening/src/events/views.py",
 		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/Babel.sublime-settings",
-		"/Users/jonathan/Desktop/pages-to-restore",
-		"/Users/jonathan/Documents/Programming/python/happening/src/pages/utils.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/pages/models.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/pages/views.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/pages/page_blocks.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/templates/staff/create_page.html",
-		"/Users/jonathan/Documents/Programming/python/happening/src/ve/lib/python3.5/site-packages/django/contrib/flatpages/forms.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/templates/staff/members.html"
+		"/Users/jonathan/Desktop/pages-to-restore"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -264,6 +272,32 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"movingtween",
+			"reset",
+			"color",
+			"move",
+			"move()",
+			"previousMovable",
+			"nextMovable",
+			"Moving",
+			"kickingPlayer",
+			"movingPlayer",
+			"super(",
+			"endmovement",
+			"playerendmove",
+			"power_STAT",
+			"todo",
+			".height",
+			"yOFf",
+			"xOffset",
+			"mousebutt",
+			".pop",
+			"768",
+			"PITCH_HE",
+			"PITCH_WID",
+			"GOAL_HEIGHT",
+			"PLAYER_WI",
+			"Ball_HEIG",
 			"console",
 			".columns",
 			"dispatchevent",
@@ -365,33 +399,7 @@
 			"allfields",
 			"import",
 			"head",
-			"render_block",
-			"additioan",
-			"jsonfield",
-			"cookie",
-			"const EditPage",
-			"json",
-			"RED",
-			"type",
-			"SET_FORM",
-			"startPReviewBlock",
-			"PREVIEWBlock",
-			"preview",
-			"setFormVal",
-			"SET_FORM",
-			"setFormVl",
-			"onfieldchange",
-			"editblockcont",
-			"onfieldchange",
-			"{ block",
-			"editblockconta",
-			"editblock",
-			"jsonify",
-			"pageform",
-			"page",
-			"previewblockcont",
-			"startPReview",
-			"thunk"
+			"render_block"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -463,6 +471,42 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"player.",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx"
+			],
+			[
+				"matchsta",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
+			],
+			[
+				"ball",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Ball.hx"
+			],
+			[
+				"playerend",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/PlayerEndMovement.hx"
+			],
+			[
+				"reg.hx",
+				"GeezersUnited/source/me/jscott/geezersunited/Reg.hx"
+			],
+			[
+				"matchst",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
+			],
+			[
+				"player",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx"
+			],
+			[
+				"matchstate",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
+			],
+			[
+				"ball.hx",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Ball.hx"
+			],
 			[
 				"roject.x",
 				"GeezersUnited/Project.xml"
@@ -938,42 +982,6 @@
 			[
 				"duration-w",
 				"happening/src/assets/js/blocks/form/duration-widget.js"
-			],
-			[
-				"durationwidget",
-				"happening/src/assets/js/blocks/form/duration-widget.js"
-			],
-			[
-				"time-widget",
-				"happening/src/assets/js/blocks/form/time-widget.js"
-			],
-			[
-				"memberconfigurati",
-				"happening/src/members/configuration.py"
-			],
-			[
-				"notifconfiguration",
-				"happening/src/notifications/configuration.py"
-			],
-			[
-				"_form.htm",
-				"happening/src/templates/forms/_form.html"
-			],
-			[
-				"pagesconfig",
-				"happening/src/pages/configuration.py"
-			],
-			[
-				"edit_",
-				"happening/src/templates/staff/edit_page.html"
-			],
-			[
-				"happeningconfiguration",
-				"happening/src/happening/configuration.py"
-			],
-			[
-				"happeningconfiguration.py",
-				"happening/src/pages/configuration.py"
 			]
 		],
 		"width": 0.0
@@ -1004,7 +1012,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 241.0,
+	"side_bar_width": 287.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
