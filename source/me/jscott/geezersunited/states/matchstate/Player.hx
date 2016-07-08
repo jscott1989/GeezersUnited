@@ -9,8 +9,10 @@ import me.jscott.geezersunited.Reg;
 import me.jscott.Utils;
 import flixel.text.FlxText;
 import flixel.FlxG;
+import flixel.util.FlxSpriteUtil;
+import flixel.addons.display.shapes.FlxShapeBox;
 
-class Player extends FlxSprite {
+class Player extends FlxShapeBox {
 
     // TODO: We'll need to support actual stats that change by player
     // They can be 1-100
@@ -22,9 +24,10 @@ class Player extends FlxSprite {
     var movementText = new FlxText(100, 100, "", 40);
 
 	public function new(matchState: MatchState, x: Float, y: Float, color: FlxColor) {
-		super(x, y);
+		//super(x, y);
+        super(x, y, Reg.PLAYER_WIDTH, Reg.PLAYER_HEIGHT, { thickness:0, color:FlxColor.WHITE }, color);
         this.matchState = matchState;
-		makeGraphic(Reg.PLAYER_WIDTH, Reg.PLAYER_HEIGHT, color);
+		//makeGraphic(Reg.PLAYER_WIDTH, Reg.PLAYER_HEIGHT, color);
 
 		// TODO: This needs to support right mouse presses too...
 		FlxMouseEventManager.add(this, function(item:FlxSprite) {
@@ -96,5 +99,26 @@ class Player extends FlxSprite {
         } else {
             movementText.text = Std.string(Std.int(travelTime) + 1);
         }
+    }
+
+    public function select() {
+        lineStyle.thickness = 4;
+        redrawShape();
+    }
+    public function deselect() {
+        lineStyle.thickness = 0;
+        redrawShape();
+    }
+    public function moveUp() {
+        y = y - 1;
+    }
+    public function moveDown() {
+        y = y + 1;
+    }
+    public function moveLeft() {
+        x = x - 1;
+    }
+    public function moveRight() {
+        x = x + 1;
     }
 }

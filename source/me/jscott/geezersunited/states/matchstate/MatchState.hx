@@ -6,6 +6,7 @@ import flixel.FlxState;
 import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
 import me.jscott.geezersunited.Reg;
+import flixel.math.FlxRandom;
 
 class MatchState extends FlxState {
 
@@ -16,6 +17,9 @@ class MatchState extends FlxState {
 	var tacticsOverlay: TacticsOverlay;
 
 	public var players = new Array<Player>();
+	public var selectedPlayer:Player;
+
+	var random = new FlxRandom();
 
 	override public function create():Void {
 		super.create();
@@ -52,6 +56,9 @@ class MatchState extends FlxState {
 			}
 		}
 
+		selectedPlayer = players[0];
+		selectedPlayer.select();
+
 	}
 
 	public function startMoving(player:Player, xOffset:Float, yOffset:Float) {
@@ -66,6 +73,25 @@ class MatchState extends FlxState {
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
+
+		if (FlxG.keys.justPressed.SPACE) {
+			this.selectedPlayer.deselect();
+			//selectedPlayer = Random.fromArray(players);
+			selectedPlayer = players[random.int(0,9)];
+			selectedPlayer.select();
+		}
+		if(FlxG.keys.pressed.UP) {
+			selectedPlayer.moveUp();
+		}
+		if(FlxG.keys.pressed.DOWN) {
+			selectedPlayer.moveDown();
+		}
+		if(FlxG.keys.pressed.LEFT) {
+			selectedPlayer.moveLeft();
+		}
+		if(FlxG.keys.pressed.RIGHT) {
+			selectedPlayer.moveRight();
+		}
 
 		if (movingPlayer != null && !FlxG.mouse.pressed) {
 			stopMoving();
