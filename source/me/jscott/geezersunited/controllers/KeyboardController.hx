@@ -8,9 +8,21 @@ class KeyboardController extends Controller {
     }
 
     public override function RJustPressed() {
-        return return FlxG.keys.justPressed.E;
+        return FlxG.keys.justPressed.E;
     }
     public override function LJustPressed() {
-        return return FlxG.keys.justPressed.W;
+        return FlxG.keys.justPressed.Q;
+    }
+    public override function upPressed() {
+        return FlxG.keys.pressed.W;
+    }
+    public override function downPressed() {
+        return FlxG.keys.pressed.S;
+    }
+    public override function leftPressed() {
+        return FlxG.keys.pressed.A;
+    }
+    public override function rightPressed() {
+        return FlxG.keys.pressed.D;
     }
 }

@@ -53,4 +53,21 @@ class Utils
             members[i] = member;
         }
     }
+
+    /**
+    * Converts specified angle in radians to degrees.
+    * @return angle in degrees (not normalized to 0...360)
+    */
+    public inline static function radToDeg(rad:Float):Float
+    {
+        return 180 / Math.PI * rad;
+    }
+    /**
+    * Converts specified angle in degrees to radians.
+    * @return angle in radians (not normalized to 0...Math.PI*2)
+    */
+    public inline static function degToRad(deg:Float):Float
+    {
+        return Math.PI / 180 * deg;
+    }
 }

@@ -24,7 +24,9 @@ class Player extends FlxNapeSprite {
         drawSprite();
         createCircularBody(Reg.BALL_WIDTH / 2);
         body.space = FlxNapeSpace.space;
+        body.rotation = Utils.degToRad(180);
     }
+
 
     function drawSprite() {
 

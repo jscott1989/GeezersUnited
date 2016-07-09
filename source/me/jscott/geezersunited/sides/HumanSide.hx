@@ -45,5 +45,70 @@ class HumanSide extends Side {
         } else if (this.controller.LJustPressed()) {
             prevSelection();
         }
+
+        var targetAngle = 0;
+        var move = false;
+
+        if (this.controller.upPressed()) {
+            if (this.controller.leftPressed()) {
+                targetAngle = 315;
+            } else if (this.controller.rightPressed()) {
+                targetAngle = 45;
+            } else {
+                targetAngle = 0;
+            }
+            move = true;
+        } else if (this.controller.downPressed()) {
+            if (this.controller.leftPressed()) {
+                targetAngle = 225;
+            } else if (this.controller.rightPressed()) {
+                targetAngle = 135;
+            } else {
+                targetAngle = 180;
+            }
+            move = true;
+        } else if (this.controller.leftPressed()) {
+            targetAngle = 270;
+            move = true;
+        } else if (this.controller.rightPressed()) {
+            targetAngle = 90;
+            move = true;
+        }
+
+        if (move) {
+            // selectedPlayer
+            var currentAngle = Utils.radToDeg(matchState.players[side][selectedPlayer].body.rotation);
+
+            trace(currentAngle, targetAngle);
+
+            if (currentAngle == targetAngle) {
+                // TODO: Move...
+                trace("MOVE");
+            } else {
+                // We need to figure out if it's quicker to go down or up
+                var differenceUp = targetAngle - currentAngle;
+                var differenceDown = currentAngle + 360 - targetAngle;
+                if (targetAngle < currentAngle) {
+                    differenceUp = targetAngle + 360 - currentAngle;
+                    differenceDown = currentAngle - targetAngle;
+                }
+
+                var newAngle = currentAngle + 5;
+                if (differenceUp > differenceDown) {
+                    newAngle = currentAngle - 5;
+                }
+
+                if (newAngle >= 360) {
+                    newAngle -= 360;
+                }
+
+                if (newAngle < 0) {
+                    newAngle = 360 + newAngle;
+                }
+
+                matchState.players[side][selectedPlayer].body.rotation = Utils.degToRad(newAngle);
+
+            }
+        }
     }
 }
