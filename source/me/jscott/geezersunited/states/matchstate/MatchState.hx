@@ -3,20 +3,27 @@ package me.jscott.geezersunited.states.matchstate;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.math.FlxPoint;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import flixel.group.FlxGroup;
-import me.jscott.geezersunited.Reg;
 import flixel.addons.nape.FlxNapeSpace;
-import nape.geom.Vec2;
-import flixel.math.FlxVelocity;
+import flixel.util.FlxColor;
+import me.jscott.geezersunited.Reg;
+import me.jscott.geezersunited.controllers.KeyboardController;
+import me.jscott.geezersunited.sides.AISide;
+import me.jscott.geezersunited.sides.HumanSide;
+import me.jscott.geezersunited.sides.Side;
 
 class MatchState extends FlxState {
 
     var pitch: FlxSprite;
 
+    var side1:Side;
+    var side2:Side;
+
+    public var players= new Array<Array<Player>>();
+
     override public function create():Void {
+        side1 = new HumanSide(0, this, new KeyboardController());
+        side2 = new AISide(1, this);
+
         FlxNapeSpace.init();
 
         super.create();
@@ -88,14 +95,52 @@ class MatchState extends FlxState {
         add(rightGoalBack);
         
 
-        var ball = new Ball(FlxG.width / 2 + 300, FlxG.height / 2);
+        var ball = new Ball(pitch.x + pitch.width / 2, pitch.y + pitch.height / 2);
         add(ball);
 
-        // ball.body.velocity.x = 400;
-        // ball.body.velocity.y = 100;
+
+        players.push(setupPlayers(Formation.FORMATION_22));
+        players.push(setupPlayers(Formation.FORMATION_22, true));
+
+        for (player in players[0]) {
+            add(player);
+        }
+
+        for (player in players[1]) {
+            add(player);
+        }
+    }
+
+    function setupPlayers(formation:Formation, isRight=false) {
+        var r = new Array<Player>();
+
+        var centre = pitch.y + pitch.height / 2;
+        var startPos = pitch.x;
+        if (isRight) {
+            startPos = pitch.x + pitch.width;
+        }
+
+        for (i in 0...5) {
+            var xOffset = pitch.width * formation.points[i].x;
+            var yOffset = pitch.height * formation.points[i].y;
+
+            var x = startPos + xOffset;
+            if (isRight) {
+                x = startPos - xOffset;
+            }
+            var y = centre + yOffset;
+            var player = new Player(i + 1, x, y);
+            r.push(player);
+        }
+
+
+        return r;
     }
 
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
+
+        side1.update(elapsed);
+        side2.update(elapsed);
     }
 }
