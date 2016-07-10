@@ -14,6 +14,10 @@ class Side {
         this.matchState = matchState;
     }
 
+    public function resetState() {
+        
+    }
+
     public function update(elapsed:Float) {
         
     }

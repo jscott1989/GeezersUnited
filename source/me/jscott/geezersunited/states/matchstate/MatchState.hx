@@ -125,8 +125,8 @@ class MatchState extends FlxState {
         add(ball);
 
 
-        players.push(setupPlayers(Formation.FORMATION_22));
-        players.push(setupPlayers(Formation.FORMATION_22, true));
+        players.push(createPlayers());
+        players.push(createPlayers(true));
 
         for (player in players[0]) {
             add(player);
@@ -135,11 +135,21 @@ class MatchState extends FlxState {
         for (player in players[1]) {
             add(player);
         }
+
+        resetState();
     }
 
-    function setupPlayers(formation:Formation, isRight=false) {
+    function createPlayers(isRight=false) {
         var r = new Array<Player>();
+        for (i in 0...5) {
+            var color = isRight ? FlxColor.BLUE : FlxColor.BLACK;
+            var player = new Player(this, color, i + 1, 0, 0, isRight);
+            r.push(player);
+        }
+        return r;
+    }
 
+    function setupPlayers(players:Array<Player>, formation:Formation, isRight=false) {
         var centre = pitch.y + pitch.height / 2;
         var startPos = pitch.x;
         if (isRight) {
@@ -156,12 +166,15 @@ class MatchState extends FlxState {
             }
             var color = isRight ? FlxColor.BLUE : FlxColor.BLACK;
             var y = centre + yOffset;
-            var player = new Player(this, color, i + 1, x, y, isRight);
-            r.push(player);
+            players[i].body.position.x = x;
+            players[i].body.position.y = y;
+
+            if (isRight) {
+                players[i].body.rotation = Utils.degToRad(270);
+            } else {
+                players[i].body.rotation = Utils.degToRad(90);
+            }
         }
-
-
-        return r;
     }
 
     override public function update(elapsed:Float):Void {
@@ -190,6 +203,20 @@ class MatchState extends FlxState {
         }
     }
 
+    function resetState() {
+        inPlay = true;
+        setupPlayers(players[0], Formation.FORMATION_22);
+        setupPlayers(players[1], Formation.FORMATION_22, true);
+        ball.body.position.x = pitch.x + pitch.width / 2;
+        ball.body.position.y = pitch.y + pitch.height / 2;
+        ball.body.angularVel = 0;
+        ball.body.velocity.x = 0;
+        ball.body.velocity.y = 0;
+
+        side1.resetState();
+        side2.resetState();
+    }
+
     public function score(side:Int) {
         if (side == 1) {
             score1 += 1;
@@ -202,7 +229,7 @@ class MatchState extends FlxState {
 
         haxe.Timer.delay(
             function() {
-                inPlay = true;
+                resetState();
         },
         3000);
     }

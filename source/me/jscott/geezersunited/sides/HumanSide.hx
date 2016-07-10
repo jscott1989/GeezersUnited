@@ -3,6 +3,7 @@ package me.jscott.geezersunited.sides;
 import me.jscott.geezersunited.controllers.Controller;
 import me.jscott.geezersunited.states.matchstate.MatchState;
 import flixel.util.FlxColor;
+import flixel.math.FlxPoint;
 
 /**
  * A HumanSide can be controlled by a controller.
@@ -19,6 +20,27 @@ class HumanSide extends Side {
     public function new(side:Int, matchState: MatchState, controller: Controller) {
         this.controller = controller;
         super(side, matchState);
+    }
+
+    override public function resetState() {
+        // TODO: We should select the player closest to the ball
+        var mostForwardPlayerI = 0;
+        var mostForwardDistance = 9999999999999;
+        var ballPosition = new FlxPoint(matchState.ball.body.position.x, matchState.ball.body.position.y);
+
+        for (p in 0...5) {
+            var player = matchState.players[side][p];
+            var playerPosition = new FlxPoint(player.body.position.x, player.body.position.y);
+            var x = playerPosition.distanceTo(ballPosition);
+            if (x < mostForwardDistance) {
+                mostForwardPlayerI = p;
+                mostForwardDistance = x;
+            }
+        }
+
+        matchState.players[side][selectedPlayer].setHighlighted(null);
+        selectedPlayer = mostForwardPlayerI;
+        matchState.players[side][selectedPlayer].setHighlighted(colors[side]);
     }
 
     function prevSelection() {
