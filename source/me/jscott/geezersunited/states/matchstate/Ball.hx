@@ -16,9 +16,9 @@ class Ball extends FlxNapeSprite {
 	public function new(x: Float, y: Float) {
 		super(x, y);
 
-                makeGraphic(Reg.BALL_WIDTH, Reg.BALL_HEIGHT, FlxColor.TRANSPARENT);
+                makeGraphic(Reg.BALL_WIDTH, Reg.BALL_WIDTH, FlxColor.TRANSPARENT);
                 FlxSpriteUtil.drawCircle(this, Std.int(Reg.BALL_WIDTH / 2), Std.int(Reg.BALL_WIDTH / 2), Std.int(Reg.BALL_WIDTH / 2), FlxColor.ORANGE);
-                setSize(Reg.BALL_WIDTH, Reg.BALL_HEIGHT);
+                setSize(Reg.BALL_WIDTH, Reg.BALL_WIDTH);
                 createCircularBody(Reg.BALL_WIDTH / 2);
 
                 setBodyMaterial(0.5, 0.5, 0.5, 2);

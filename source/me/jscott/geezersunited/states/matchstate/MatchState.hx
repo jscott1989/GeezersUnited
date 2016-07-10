@@ -10,8 +10,18 @@ import me.jscott.geezersunited.controllers.KeyboardController;
 import me.jscott.geezersunited.sides.AISide;
 import me.jscott.geezersunited.sides.HumanSide;
 import me.jscott.geezersunited.sides.Side;
+import flixel.text.FlxText;
 
 class MatchState extends FlxState {
+
+    public var timeRemaining:Float;
+    public var score1:Int;
+    public var score2:Int;
+
+    var inPlay = true;
+
+    var scoreText:FlxText;
+    var timeText:FlxText;
 
     var pitch: FlxSprite;
 
@@ -22,9 +32,23 @@ class MatchState extends FlxState {
 
     public var players= new Array<Array<Player>>();
 
+    var leftGoalBase:FlxSprite;
+    var rightGoalBase:FlxSprite;
+
     override public function create():Void {
         side1 = new HumanSide(0, this, new KeyboardController());
         side2 = new AISide(1, this);
+
+        timeText = new FlxText(0, 10, FlxG.width, "2:30", 20);
+        scoreText = new FlxText(0, timeText.y + timeText.height * 1.1, FlxG.width, "0 - 0", 40);
+        timeText.alignment = "center";
+        scoreText.alignment = "center";
+        add(timeText);
+        add(scoreText);
+
+        score1 = 0;
+        score2 = 0;
+        timeRemaining = 180;
 
         FlxNapeSpace.init();
 
@@ -68,7 +92,7 @@ class MatchState extends FlxState {
         var goalDepthPx = Std.int(pitch.height * goalDepth);
         var goalHeightPx = Std.int((pitch.height + wallWidth * 2) * goalHeight);
 
-        var leftGoalBase = new FlxSprite(pitch.x - goalDepthPx, (pitch.y - wallWidth) + leftWall1.height);
+        leftGoalBase = new FlxSprite(pitch.x - goalDepthPx, (pitch.y - wallWidth) + leftWall1.height);
         leftGoalBase.makeGraphic(goalDepthPx, goalHeightPx, FlxColor.RED);
         add(leftGoalBase);
 
@@ -83,7 +107,7 @@ class MatchState extends FlxState {
 
         // Create right goal
 
-        var rightGoalBase = new FlxSprite(pitch.x + pitch.width, (pitch.y - wallWidth) + leftWall1.height);
+        rightGoalBase = new FlxSprite(pitch.x + pitch.width, (pitch.y - wallWidth) + leftWall1.height);
         rightGoalBase.makeGraphic(goalDepthPx, goalHeightPx, FlxColor.RED);
         add(rightGoalBase);
 
@@ -145,5 +169,41 @@ class MatchState extends FlxState {
 
         side1.update(elapsed);
         side2.update(elapsed);
+
+        if (inPlay) {
+            timeRemaining -= elapsed;
+            var minutes = Std.int(timeRemaining/60);
+            var seconds = Std.int(timeRemaining - minutes * 60);
+            var secondsText = Std.string(seconds);
+            if (secondsText.length == 1) {
+                secondsText = "0" + secondsText;
+            }
+            timeText.text = Std.string(minutes) + ":" + secondsText;
+
+            if (ball.body.position.x - Reg.BALL_WIDTH / 2 > rightGoalBase.x && ball.body.position.y - Reg.BALL_WIDTH / 2 > rightGoalBase.y && ball.body.position.y + Reg.BALL_WIDTH / 2 < rightGoalBase.y + rightGoalBase.height) {
+                score(1);
+            }
+
+            if (ball.body.position.x + Reg.BALL_WIDTH / 2 < leftGoalBase.x + leftGoalBase.width && ball.body.position.y - Reg.BALL_WIDTH / 2 > leftGoalBase.y && ball.body.position.y + Reg.BALL_WIDTH / 2 < leftGoalBase.y + leftGoalBase.height) {
+                score(2);
+            }
+        }
+    }
+
+    public function score(side:Int) {
+        if (side == 1) {
+            score1 += 1;
+        } else {
+            score2 += 1;
+        }
+
+        scoreText.text = Std.string(score1) + " - " + Std.string(score2);
+        inPlay = false;
+
+        haxe.Timer.delay(
+            function() {
+                inPlay = true;
+        },
+        3000);
     }
 }

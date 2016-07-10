@@ -10,7 +10,6 @@ class Reg {
     public static var PLAYER_HEIGHT = 64;
 
     public static var BALL_WIDTH = 32;
-    public static var BALL_HEIGHT = 32;
 
     // Standard Football Pitch dimensions are roughly 5/2 I think
     public static var PITCH_WIDTH = 800;
