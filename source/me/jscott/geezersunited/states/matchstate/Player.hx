@@ -15,8 +15,12 @@ import flixel.addons.nape.FlxNapeVelocity;
 import flixel.text.FlxText;
 
 class Player extends FlxNapeSprite {
+    var matchState: MatchState;
     var num = 0;
-    public function new(num:Int, x: Float, y: Float, isRight = false) {
+    var teamColor:FlxColor;
+    public function new(matchState:MatchState, teamColor: FlxColor, num:Int, x: Float, y: Float, isRight = false) {
+        this.teamColor = teamColor;
+        this.matchState = matchState;
         this.num = num;
         super(x, y);
         
@@ -32,10 +36,37 @@ class Player extends FlxNapeSprite {
         }
     }
 
+    public function move() {
+        body.position.y -=  Math.cos(body.rotation) * Reg.TRAVEL_SPEED;
+        body.position.x += Math.sin(body.rotation) * Reg.TRAVEL_SPEED;
+    }
+
+    function canKick() {
+        // Check if the ball is in front of us, but not too far
+        var position = new FlxPoint(body.position.x, body.position.y);
+        var inFront = new FlxPoint(body.position.x + Math.sin(body.rotation) * Reg.TRAVEL_SPEED, body.position.y -  Math.cos(body.rotation) * Reg.TRAVEL_SPEED);
+        var ballPosition = new FlxPoint(matchState.ball.body.position.x, matchState.ball.body.position.y);
+
+        if (inFront.distanceTo(ballPosition) < position.distanceTo(ballPosition)) {
+            // Is in front
+            return (inFront.distanceTo(ballPosition)) < Reg.KICK_DISTANCE;
+        }
+
+        return false;
+    }
+
+    public function kick() {
+        if (canKick()) {
+            matchState.ball.kick(body.rotation);
+        } else {
+            trace("Fall over/miss kick");
+        }
+    }
+
 
     function drawSprite() {
 
-        var c = FlxColor.ORANGE;
+        var c = this.teamColor;
         if (highlightColor != null ){
             c = highlightColor;
         }
@@ -51,6 +82,9 @@ class Player extends FlxNapeSprite {
 
     override public function update(elapsed:Float) {
         super.update(elapsed);
+        body.angularVel = 0;
+        body.velocity.x = 0;
+        body.velocity.y = 0;
     }
 
     var highlightColor: FlxColor;

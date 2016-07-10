@@ -18,6 +18,8 @@ class MatchState extends FlxState {
     var side1:Side;
     var side2:Side;
 
+    public var ball:Ball;
+
     public var players= new Array<Array<Player>>();
 
     override public function create():Void {
@@ -95,7 +97,7 @@ class MatchState extends FlxState {
         add(rightGoalBack);
         
 
-        var ball = new Ball(pitch.x + pitch.width / 2, pitch.y + pitch.height / 2);
+        ball = new Ball(pitch.x + pitch.width / 2, pitch.y + pitch.height / 2);
         add(ball);
 
 
@@ -128,8 +130,9 @@ class MatchState extends FlxState {
             if (isRight) {
                 x = startPos - xOffset;
             }
+            var color = isRight ? FlxColor.BLUE : FlxColor.BLACK;
             var y = centre + yOffset;
-            var player = new Player(i + 1, x, y, isRight);
+            var player = new Player(this, color, i + 1, x, y, isRight);
             r.push(player);
         }
 

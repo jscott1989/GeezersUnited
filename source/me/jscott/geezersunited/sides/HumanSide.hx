@@ -14,7 +14,7 @@ class HumanSide extends Side {
     var selectedPlayer = 0;
 
     // TODO: if we allow more than one controller per side - have multiple colours too
-    static var colors = [FlxColor.BLUE, FlxColor.RED];
+    static var colors = [FlxColor.PINK, FlxColor.RED];
 
     public function new(side:Int, matchState: MatchState, controller: Controller) {
         this.controller = controller;
@@ -80,9 +80,7 @@ class HumanSide extends Side {
             var currentAngle = Utils.radToDeg(matchState.players[side][selectedPlayer].body.rotation);
 
             if (Math.abs(currentAngle - targetAngle) < Reg.ROTATION_SPEED) {
-                // TODO: Move...
-                matchState.players[side][selectedPlayer].body.position.y -=  Math.cos(matchState.players[side][selectedPlayer].body.rotation) * Reg.TRAVEL_SPEED;
-                matchState.players[side][selectedPlayer].body.position.x += Math.sin(matchState.players[side][selectedPlayer].body.rotation) * Reg.TRAVEL_SPEED;
+                matchState.players[side][selectedPlayer].move();
             } else {
                 // We need to figure out if it's quicker to go down or up
                 var differenceUp = targetAngle - currentAngle;
@@ -108,6 +106,10 @@ class HumanSide extends Side {
                 matchState.players[side][selectedPlayer].body.rotation = Utils.degToRad(newAngle);
 
             }
+        }
+
+        if (this.controller.XJustPressed()) {
+            matchState.players[side][selectedPlayer].kick();
         }
     }
 }

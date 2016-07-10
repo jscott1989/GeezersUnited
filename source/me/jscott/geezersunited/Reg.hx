@@ -18,4 +18,6 @@ class Reg {
 
     public static var ROTATION_SPEED = 5;
     public static var TRAVEL_SPEED = 2;
+    public static var KICK_SPEED = 500;
+    public static var KICK_DISTANCE = 64;
 }

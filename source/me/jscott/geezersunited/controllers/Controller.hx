@@ -1,6 +1,9 @@
 package me.jscott.geezersunited.controllers;
 
 class Controller {
+    public function XJustPressed() {
+        return false;
+    }
     public function RJustPressed() {
         return false;
     }

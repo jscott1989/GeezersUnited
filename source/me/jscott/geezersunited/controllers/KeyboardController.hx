@@ -6,7 +6,9 @@ class KeyboardController extends Controller {
     public function new() {
         
     }
-
+    public override function XJustPressed() {
+        return FlxG.keys.justPressed.SPACE;
+    }
     public override function RJustPressed() {
         return FlxG.keys.justPressed.E;
     }
