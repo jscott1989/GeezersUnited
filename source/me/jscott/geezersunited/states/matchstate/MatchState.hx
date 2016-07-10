@@ -129,7 +129,7 @@ class MatchState extends FlxState {
                 x = startPos - xOffset;
             }
             var y = centre + yOffset;
-            var player = new Player(i + 1, x, y);
+            var player = new Player(i + 1, x, y, isRight);
             r.push(player);
         }
 

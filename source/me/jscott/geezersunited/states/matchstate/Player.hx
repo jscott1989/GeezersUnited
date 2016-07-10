@@ -16,7 +16,7 @@ import flixel.text.FlxText;
 
 class Player extends FlxNapeSprite {
     var num = 0;
-    public function new(num:Int, x: Float, y: Float) {
+    public function new(num:Int, x: Float, y: Float, isRight = false) {
         this.num = num;
         super(x, y);
         
@@ -24,7 +24,12 @@ class Player extends FlxNapeSprite {
         drawSprite();
         createCircularBody(Reg.BALL_WIDTH / 2);
         body.space = FlxNapeSpace.space;
-        body.rotation = Utils.degToRad(180);
+
+        if (isRight) {
+            body.rotation = Utils.degToRad(270);
+        } else {
+            body.rotation = Utils.degToRad(90);
+        }
     }
 
 

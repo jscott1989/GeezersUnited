@@ -79,11 +79,10 @@ class HumanSide extends Side {
             // selectedPlayer
             var currentAngle = Utils.radToDeg(matchState.players[side][selectedPlayer].body.rotation);
 
-            trace(currentAngle, targetAngle);
-
-            if (currentAngle == targetAngle) {
+            if (Math.abs(currentAngle - targetAngle) < Reg.ROTATION_SPEED) {
                 // TODO: Move...
-                trace("MOVE");
+                matchState.players[side][selectedPlayer].body.position.y -=  Math.cos(matchState.players[side][selectedPlayer].body.rotation) * Reg.TRAVEL_SPEED;
+                matchState.players[side][selectedPlayer].body.position.x += Math.sin(matchState.players[side][selectedPlayer].body.rotation) * Reg.TRAVEL_SPEED;
             } else {
                 // We need to figure out if it's quicker to go down or up
                 var differenceUp = targetAngle - currentAngle;
@@ -93,9 +92,9 @@ class HumanSide extends Side {
                     differenceDown = currentAngle - targetAngle;
                 }
 
-                var newAngle = currentAngle + 5;
+                var newAngle = currentAngle + Reg.ROTATION_SPEED;
                 if (differenceUp > differenceDown) {
-                    newAngle = currentAngle - 5;
+                    newAngle = currentAngle - Reg.ROTATION_SPEED;
                 }
 
                 if (newAngle >= 360) {
