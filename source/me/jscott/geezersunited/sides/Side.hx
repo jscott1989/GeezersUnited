@@ -24,10 +24,17 @@ class Side {
     }
 
     function controlPlayer(playerI:Int, elapsed:Float) {
-        // Turn so that we're looking towards the ball
+
+        // Move to ensure that we're 50% between the ball's position and our "natural" position
         var player = matchState.players[side][playerI];
 
-        var angleToBall = new FlxPoint(player.body.position.x, player.body.position.y).angleBetween(new FlxPoint(matchState.ball.body.position.x, matchState.ball.body.position.y));
-        player.turnTowards(angleToBall, elapsed);
+        var targetPosition = new FlxPoint(player.formationPosition.x, player.formationPosition.y);
+        var ballPosition = new FlxPoint(matchState.ball.body.position.x, matchState.ball.body.position.y);
+        var targetAngle = Utils.normaliseAngle(targetPosition.angleBetween(ballPosition));
+
+        // targetPosition.y -= Math.cos(targetAngle) * 10;
+        // targetPosition.x += Math.sin(targetAngle) * 10;
+
+        player.moveToPoint(targetPosition, targetAngle, elapsed);
     }
 }

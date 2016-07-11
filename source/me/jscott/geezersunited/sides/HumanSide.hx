@@ -99,13 +99,7 @@ class HumanSide extends Side {
                 ignoredSelections = new Array<Player>();
             }
             // selectedPlayer
-            var currentAngle = Utils.radToDeg(matchState.players[side][selectedPlayer].body.rotation);
-
-            if (Math.abs(currentAngle - targetAngle) < 5) {
-                matchState.players[side][selectedPlayer].move(elapsed);
-            } else {
-                matchState.players[side][selectedPlayer].turnTowards(targetAngle, elapsed);
-            }
+            matchState.players[side][selectedPlayer].moveTowards(targetAngle, elapsed);
         }
 
         if (this.controller.XJustPressed()) {

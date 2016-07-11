@@ -70,4 +70,16 @@ class Utils
     {
         return Math.PI / 180 * deg;
     }
+
+    public static function normaliseAngle(deg:Float) {
+        while (deg >= 360) {
+            deg -= 360;
+        }
+
+        while (deg < 0) {
+            deg = 360 + deg;
+        }
+
+        return deg;
+    }
 }

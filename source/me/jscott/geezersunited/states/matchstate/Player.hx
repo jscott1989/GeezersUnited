@@ -44,15 +44,31 @@ class Player extends FlxNapeSprite {
         body.position.x += Math.sin(body.rotation) * Reg.TRAVEL_SPEED * elapsed;
     }
 
+    public function moveToPoint(point: FlxPoint, angle: Float, elapsed: Float) {
+        var myPosition = new FlxPoint(body.position.x, body.position.y);
+        if (point.distanceTo(myPosition) > 5) {
+            var angle = Utils.normaliseAngle(myPosition.angleBetween(point));
+            moveTowards(angle, elapsed);
+        } else {
+            turnTowards(angle, elapsed);
+        }
+    }
+
+    public function moveTowards(targetAngle: Float, elapsed: Float) {
+        var currentAngle = Utils.radToDeg(body.rotation);
+
+        currentAngle = Utils.normaliseAngle(currentAngle);
+        targetAngle = Utils.normaliseAngle(targetAngle);
+
+        if (Math.abs(currentAngle - targetAngle) < 5) {
+            move(elapsed);
+        } else {
+            turnTowards(targetAngle, elapsed);
+        }
+    }
+
     public function turnTowards(targetAngle: Float, elapsed: Float) {
-
-        if (targetAngle >= 360) {
-            targetAngle -= 360;
-        }
-
-        if (targetAngle < 0) {
-            targetAngle = 360 + targetAngle;
-        }
+        targetAngle = Utils.normaliseAngle(targetAngle);
 
         var currentAngle = Utils.radToDeg(body.rotation);
         // We need to figure out if it's quicker to go down or up
@@ -68,13 +84,11 @@ class Player extends FlxNapeSprite {
             newAngle = currentAngle - Reg.ROTATION_SPEED * elapsed;
         }
 
-        if (newAngle >= 360) {
-            newAngle -= 360;
+        if (Math.abs(newAngle - targetAngle) < Reg.ROTATION_SPEED * elapsed) {
+            newAngle = targetAngle;
         }
 
-        if (newAngle < 0) {
-            newAngle = 360 + newAngle;
-        }
+        newAngle = Utils.normaliseAngle(newAngle);
 
         body.rotation = Utils.degToRad(newAngle);
     }
