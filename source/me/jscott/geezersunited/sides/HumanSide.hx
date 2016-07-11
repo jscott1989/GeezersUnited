@@ -1,9 +1,12 @@
 package me.jscott.geezersunited.sides;
 
+import flixel.math.FlxPoint;
+import flixel.util.FlxColor;
+import me.jscott.Utils;
+import me.jscott.geezersunited.Reg;
 import me.jscott.geezersunited.controllers.Controller;
 import me.jscott.geezersunited.states.matchstate.MatchState;
-import flixel.util.FlxColor;
-import flixel.math.FlxPoint;
+import me.jscott.geezersunited.states.matchstate.Player;
 
 /**
  * A HumanSide can be controlled by a controller.
@@ -14,6 +17,9 @@ class HumanSide extends Side {
     var controller: Controller;
     var selectedPlayer = 0;
 
+    // This records players we shouldn't select (because we're tabbing through players)
+    var ignoredSelections = new Array<Player>();
+
     // TODO: if we allow more than one controller per side - have multiple colours too
     static var colors = [FlxColor.PINK, FlxColor.RED];
 
@@ -23,7 +29,11 @@ class HumanSide extends Side {
     }
 
     override public function resetState() {
-        // TODO: We should select the player closest to the ball
+        ignoredSelections = new Array<Player>();
+        selectClosestToBall();
+    }
+
+    function selectClosestToBall(ignore:Array<Player> = null) {
         var mostForwardPlayerI = 0;
         var mostForwardDistance = 9999999999999;
         var ballPosition = new FlxPoint(matchState.ball.body.position.x, matchState.ball.body.position.y);
@@ -32,7 +42,7 @@ class HumanSide extends Side {
             var player = matchState.players[side][p];
             var playerPosition = new FlxPoint(player.body.position.x, player.body.position.y);
             var x = playerPosition.distanceTo(ballPosition);
-            if (x < mostForwardDistance) {
+            if (x < mostForwardDistance && (ignore == null || ignore.indexOf(player) == -1)) {
                 mostForwardPlayerI = p;
                 mostForwardDistance = x;
             }
@@ -43,29 +53,16 @@ class HumanSide extends Side {
         matchState.players[side][selectedPlayer].setHighlighted(colors[side]);
     }
 
-    function prevSelection() {
-        matchState.players[side][selectedPlayer].setHighlighted(null);
-        selectedPlayer -= 1;
-        if (selectedPlayer < 0) {
-            selectedPlayer = 4;
-        }
-        matchState.players[side][selectedPlayer].setHighlighted(colors[side]);
+    function changeSelection() {
+        // Find the next closest player 
+
+        ignoredSelections.push(matchState.players[side][selectedPlayer]);
+        selectClosestToBall(ignoredSelections);
     }
 
-    function nextSelection() {
-        matchState.players[side][selectedPlayer].setHighlighted(null);
-        selectedPlayer += 1;
-        if (selectedPlayer > 4) {
-            selectedPlayer = 0;
-        }
-        matchState.players[side][selectedPlayer].setHighlighted(colors[side]);
-    }
-
-    public override function update(elapsed:Float) {
-        if (this.controller.RJustPressed()) {
-            nextSelection();
-        } else if (this.controller.LJustPressed()) {
-            prevSelection();
+    function moveControlled(elapsed:Float) {
+        if (this.controller.LJustPressed()) {
+            changeSelection();
         }
 
         var targetAngle = 0;
@@ -98,40 +95,42 @@ class HumanSide extends Side {
         }
 
         if (move) {
+            if (ignoredSelections.length > 0) {
+                ignoredSelections = new Array<Player>();
+            }
             // selectedPlayer
             var currentAngle = Utils.radToDeg(matchState.players[side][selectedPlayer].body.rotation);
 
-            if (Math.abs(currentAngle - targetAngle) < Reg.ROTATION_SPEED) {
-                matchState.players[side][selectedPlayer].move();
+            if (Math.abs(currentAngle - targetAngle) < 5) {
+                matchState.players[side][selectedPlayer].move(elapsed);
             } else {
-                // We need to figure out if it's quicker to go down or up
-                var differenceUp = targetAngle - currentAngle;
-                var differenceDown = currentAngle + 360 - targetAngle;
-                if (targetAngle < currentAngle) {
-                    differenceUp = targetAngle + 360 - currentAngle;
-                    differenceDown = currentAngle - targetAngle;
-                }
-
-                var newAngle = currentAngle + Reg.ROTATION_SPEED;
-                if (differenceUp > differenceDown) {
-                    newAngle = currentAngle - Reg.ROTATION_SPEED;
-                }
-
-                if (newAngle >= 360) {
-                    newAngle -= 360;
-                }
-
-                if (newAngle < 0) {
-                    newAngle = 360 + newAngle;
-                }
-
-                matchState.players[side][selectedPlayer].body.rotation = Utils.degToRad(newAngle);
-
+                matchState.players[side][selectedPlayer].turnTowards(targetAngle, elapsed);
             }
         }
 
         if (this.controller.XJustPressed()) {
-            matchState.players[side][selectedPlayer].kick();
+            if (ignoredSelections.length > 0) {
+                ignoredSelections = new Array<Player>();
+            }
+            matchState.players[side][selectedPlayer].kick(elapsed);
+        }
+    }
+
+    function controlPlayer(playerI:Int, elapsed:Float) {
+        // Turn so that we're looking towards the ball
+        var player = matchState.players[side][playerI];
+
+        var angleToBall = new FlxPoint(player.body.position.x, player.body.position.y).angleBetween(new FlxPoint(matchState.ball.body.position.x, matchState.ball.body.position.y));
+        player.turnTowards(angleToBall, elapsed);
+    }
+
+    public override function update(elapsed:Float) {
+        moveControlled(elapsed);
+        // Next control each player given their starting position, maximum range and individual traits
+        for (p in 0...5) {
+            if (selectedPlayer != p) {
+                controlPlayer(p, elapsed);
+            }
         }
     }
 }

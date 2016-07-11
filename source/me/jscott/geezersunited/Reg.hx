@@ -15,8 +15,8 @@ class Reg {
     public static var PITCH_WIDTH = 800;
     public static var PITCH_HEIGHT = Std.int(PITCH_WIDTH * (2/5));
 
-    public static var ROTATION_SPEED = 5;
-    public static var TRAVEL_SPEED = 2;
+    public static var ROTATION_SPEED = 100;
+    public static var TRAVEL_SPEED = 100;
     public static var KICK_SPEED = 500;
     public static var KICK_DISTANCE = 64;
 }

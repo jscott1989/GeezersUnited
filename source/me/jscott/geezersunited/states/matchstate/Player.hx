@@ -18,6 +18,9 @@ class Player extends FlxNapeSprite {
     var matchState: MatchState;
     var num = 0;
     var teamColor:FlxColor;
+
+    public var formationPosition:FlxPoint;
+
     public function new(matchState:MatchState, teamColor: FlxColor, num:Int, x: Float, y: Float, isRight = false) {
         this.teamColor = teamColor;
         this.matchState = matchState;
@@ -36,15 +39,50 @@ class Player extends FlxNapeSprite {
         }
     }
 
-    public function move() {
-        body.position.y -=  Math.cos(body.rotation) * Reg.TRAVEL_SPEED;
-        body.position.x += Math.sin(body.rotation) * Reg.TRAVEL_SPEED;
+    public function move(elapsed:Float) {
+        body.position.y -=  Math.cos(body.rotation) * Reg.TRAVEL_SPEED * elapsed;
+        body.position.x += Math.sin(body.rotation) * Reg.TRAVEL_SPEED * elapsed;
     }
 
-    function canKick() {
+    public function turnTowards(targetAngle: Float, elapsed: Float) {
+
+        if (targetAngle >= 360) {
+            targetAngle -= 360;
+        }
+
+        if (targetAngle < 0) {
+            targetAngle = 360 + targetAngle;
+        }
+
+        var currentAngle = Utils.radToDeg(body.rotation);
+        // We need to figure out if it's quicker to go down or up
+        var differenceUp = targetAngle - currentAngle;
+        var differenceDown = currentAngle + 360 - targetAngle;
+        if (targetAngle < currentAngle) {
+            differenceUp = targetAngle + 360 - currentAngle;
+            differenceDown = currentAngle - targetAngle;
+        }
+
+        var newAngle = currentAngle + Reg.ROTATION_SPEED * elapsed;
+        if (differenceUp > differenceDown) {
+            newAngle = currentAngle - Reg.ROTATION_SPEED * elapsed;
+        }
+
+        if (newAngle >= 360) {
+            newAngle -= 360;
+        }
+
+        if (newAngle < 0) {
+            newAngle = 360 + newAngle;
+        }
+
+        body.rotation = Utils.degToRad(newAngle);
+    }
+
+    function canKick(elapsed:Float) {
         // Check if the ball is in front of us, but not too far
         var position = new FlxPoint(body.position.x, body.position.y);
-        var inFront = new FlxPoint(body.position.x + Math.sin(body.rotation) * Reg.TRAVEL_SPEED, body.position.y -  Math.cos(body.rotation) * Reg.TRAVEL_SPEED);
+        var inFront = new FlxPoint(body.position.x + Math.sin(body.rotation) * Reg.TRAVEL_SPEED * elapsed, body.position.y -  Math.cos(body.rotation) * Reg.TRAVEL_SPEED * elapsed);
         var ballPosition = new FlxPoint(matchState.ball.body.position.x, matchState.ball.body.position.y);
 
         if (inFront.distanceTo(ballPosition) < position.distanceTo(ballPosition)) {
@@ -55,8 +93,8 @@ class Player extends FlxNapeSprite {
         return false;
     }
 
-    public function kick() {
-        if (canKick()) {
+    public function kick(elapsed:Float) {
+        if (canKick(elapsed)) {
             matchState.ball.kick(body.rotation);
         } else {
             trace("Fall over/miss kick");

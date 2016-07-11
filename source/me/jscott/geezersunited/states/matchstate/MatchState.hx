@@ -11,6 +11,7 @@ import me.jscott.geezersunited.sides.AISide;
 import me.jscott.geezersunited.sides.HumanSide;
 import me.jscott.geezersunited.sides.Side;
 import flixel.text.FlxText;
+import flixel.math.FlxPoint;
 
 class MatchState extends FlxState {
 
@@ -168,6 +169,8 @@ class MatchState extends FlxState {
             var y = centre + yOffset;
             players[i].body.position.x = x;
             players[i].body.position.y = y;
+
+            players[i].formationPosition = new FlxPoint(x, y);
 
             if (isRight) {
                 players[i].body.rotation = Utils.degToRad(270);
