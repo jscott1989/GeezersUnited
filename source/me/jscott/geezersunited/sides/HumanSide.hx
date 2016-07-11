@@ -116,14 +116,6 @@ class HumanSide extends Side {
         }
     }
 
-    function controlPlayer(playerI:Int, elapsed:Float) {
-        // Turn so that we're looking towards the ball
-        var player = matchState.players[side][playerI];
-
-        var angleToBall = new FlxPoint(player.body.position.x, player.body.position.y).angleBetween(new FlxPoint(matchState.ball.body.position.x, matchState.ball.body.position.y));
-        player.turnTowards(angleToBall, elapsed);
-    }
-
     public override function update(elapsed:Float) {
         moveControlled(elapsed);
         // Next control each player given their starting position, maximum range and individual traits
