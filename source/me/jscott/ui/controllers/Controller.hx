@@ -86,6 +86,9 @@ class Controller {
     public function lBumperJustPressed() { return BUTTONS[10].justPressed; }
     public function rBumperJustPressed() { return BUTTONS[11].justPressed; }
 
+    public function getAnalogAngle() { return 0.0; }
+    public function getAnalogVelocity() { return 0.0; }
+
     public function isKeyboard() {
         return false;
     }

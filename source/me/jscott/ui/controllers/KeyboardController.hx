@@ -58,4 +58,37 @@ class KeyboardController extends Controller {
     public override function isKeyboard() {
         return true;
     }
+
+    public override function getAnalogAngle() {
+        if (upPressed()) {
+            if (leftPressed()) {
+                return 315;
+            } else if (rightPressed()) {
+                return 45;
+            } else {
+                return 0;
+            }
+        } else if (downPressed()) {
+            if (leftPressed()) {
+                return 225;
+            } else if (rightPressed()) {
+                return 135;
+            } else {
+                return 180;
+            }
+        } else if (leftPressed()) {
+            return 270;
+        } else if (rightPressed()) {
+            return 90;
+        }
+
+        return null;
+    }
+
+    public override function getAnalogVelocity() { 
+        if (getAnalogAngle == null) {
+            return 0;
+        }
+        return 1;
+    }
 }

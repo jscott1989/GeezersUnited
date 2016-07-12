@@ -2,6 +2,8 @@ package me.jscott.ui.controllers;
 
 import flixel.FlxG;
 import flixel.input.gamepad.FlxGamepad;
+import flixel.math.FlxPoint;
+import flixel.input.gamepad.FlxGamepadInputID;
 
 class GamepadController extends Controller {
 
@@ -57,5 +59,25 @@ class GamepadController extends Controller {
 
     public override function rBumperPressed() {
         return gamepad.pressed.RIGHT_SHOULDER;
+    }
+
+    public override function getAnalogAngle() {
+        var p = new FlxPoint(gamepad.getXAxis(FlxGamepadInputID.LEFT_ANALOG_STICK), gamepad.getYAxis(FlxGamepadInputID.LEFT_ANALOG_STICK));
+
+        if (p.x == 0 && p.y == 0) {
+            return null;
+        }
+
+        return Utils.normaliseAngle(new FlxPoint(0, 0).angleBetween(p));
+    }
+
+    public override function getAnalogVelocity() { 
+        if (getAnalogAngle == null) {
+            return 0.0;
+        }
+        
+        var p = new FlxPoint(gamepad.getXAxis(FlxGamepadInputID.LEFT_ANALOG_STICK), gamepad.getYAxis(FlxGamepadInputID.LEFT_ANALOG_STICK));
+
+        return new FlxPoint(0, 0).distanceTo(p);
     }
 }

@@ -56,6 +56,9 @@ class HumanSide extends Side {
         // Find the next closest player 
 
         ignoredSelections.push(matchState.players[side][selectedPlayer]);
+        if (ignoredSelections.length == 5) {
+            ignoredSelections = new Array<Player>();
+        }
         selectClosestToBall(ignoredSelections);
     }
 
@@ -64,41 +67,19 @@ class HumanSide extends Side {
             changeSelection();
         }
 
-        var targetAngle = 0;
-        var move = false;
+        var targetAngle = this.controller.getAnalogAngle();
 
-        if (this.controller.upPressed()) {
-            if (this.controller.leftPressed()) {
-                targetAngle = 315;
-            } else if (this.controller.rightPressed()) {
-                targetAngle = 45;
-            } else {
-                targetAngle = 0;
-            }
-            move = true;
-        } else if (this.controller.downPressed()) {
-            if (this.controller.leftPressed()) {
-                targetAngle = 225;
-            } else if (this.controller.rightPressed()) {
-                targetAngle = 135;
-            } else {
-                targetAngle = 180;
-            }
-            move = true;
-        } else if (this.controller.leftPressed()) {
-            targetAngle = 270;
-            move = true;
-        } else if (this.controller.rightPressed()) {
-            targetAngle = 90;
-            move = true;
-        }
-
-        if (move) {
+        if (targetAngle != null) {
             if (ignoredSelections.length > 0) {
                 ignoredSelections = new Array<Player>();
             }
-            // selectedPlayer
-            matchState.players[side][selectedPlayer].moveTowards(targetAngle, elapsed);
+            var velocity = this.controller.getAnalogVelocity();
+            // TODO: allow slower/faster movement using this velocity
+            if (velocity < 0.5) {
+                matchState.players[side][selectedPlayer].turnTowards(targetAngle, elapsed);
+            } else {
+                matchState.players[side][selectedPlayer].moveTowards(targetAngle, elapsed);
+            }
         }
 
         if (this.controller.xJustPressed()) {
