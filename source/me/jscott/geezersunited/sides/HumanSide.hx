@@ -3,7 +3,6 @@ package me.jscott.geezersunited.sides;
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
 import me.jscott.Utils;
-import me.jscott.geezersunited.Reg;
 import me.jscott.ui.controllers.Controller;
 import me.jscott.geezersunited.states.matchstate.MatchState;
 import me.jscott.geezersunited.states.matchstate.Player;
@@ -61,7 +60,7 @@ class HumanSide extends Side {
     }
 
     function moveControlled(elapsed:Float) {
-        if (this.controller.LJustPressed()) {
+        if (this.controller.lBumperJustPressed()) {
             changeSelection();
         }
 
@@ -102,7 +101,7 @@ class HumanSide extends Side {
             matchState.players[side][selectedPlayer].moveTowards(targetAngle, elapsed);
         }
 
-        if (this.controller.XJustPressed()) {
+        if (this.controller.xJustPressed()) {
             if (ignoredSelections.length > 0) {
                 ignoredSelections = new Array<Player>();
             }
@@ -111,6 +110,7 @@ class HumanSide extends Side {
     }
 
     public override function update(elapsed:Float) {
+        controller.update(elapsed);
         moveControlled(elapsed);
         // Next control each player given their starting position, maximum range and individual traits
         for (p in 0...5) {

@@ -29,7 +29,7 @@ class Menu implements IEventGetter implements Controllable implements Menuable {
             menuHost.removeFromUI(_ui);
         }
 
-        var selectedName:String = "";
+        var selectedName:String = null;
 
         if (frt_cursor != null) {
             menuHost.removeFromUI(frt_cursor);

@@ -6,7 +6,7 @@ import flixel.FlxState;
 import flixel.addons.nape.FlxNapeSpace;
 import flixel.util.FlxColor;
 import me.jscott.Configuration;
-import me.jscott.ui.controllers.KeyboardController;
+import me.jscott.ui.controllers.Controller;
 import me.jscott.geezersunited.sides.AISide;
 import me.jscott.geezersunited.sides.HumanSide;
 import me.jscott.geezersunited.sides.Side;
@@ -36,10 +36,13 @@ class MatchState extends FlxState {
     var leftGoalBase:FlxSprite;
     var rightGoalBase:FlxSprite;
 
-    override public function create():Void {
-        side1 = new HumanSide(0, this, new KeyboardController());
+    public function new(controller:Controller) {
+        super();
+        side1 = new HumanSide(0, this, controller);
         side2 = new AISide(1, this);
+    }
 
+    override public function create():Void {
         timeText = new FlxText(0, 10, FlxG.width, "2:30", 20);
         scoreText = new FlxText(0, timeText.y + timeText.height * 1.1, FlxG.width, "0 - 0", 40);
         timeText.alignment = "center";

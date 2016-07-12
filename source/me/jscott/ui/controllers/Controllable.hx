@@ -1,5 +1,6 @@
 package me.jscott.ui.controllers;
 
+@:keep
 interface Controllable {
     public function pressUp(controller:Controller, justPressed:Bool):Void;
     public function pressDown(controller:Controller, justPressed:Bool):Void;

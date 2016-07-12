@@ -1,4 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
-    <text name="title" x="0" y="10" text="Frontier"/>
+    <include name="definitions" />
+    <sprite x="0" y="0" width="screen.width" height="screen.height" color="0x404040"/>
+    <text name="title" y="10" text="Geezers United" use_def="title_text"/>
+
+    <button id="friendly" x="35pt" y="title.bottom+10pt" width="30pt" height="5pt" label="Friendly">
+        <text size="2pt" />
+    </button>
+
+    <button id="league" x="35pt" y="friendly.bottom+3pt" width="30pt" height="5pt" label="Over-60s League">
+        <text size="2pt" />
+    </button>
+
+    <button id="network" x="35pt" y="league.bottom+3pt" width="30pt" height="5pt" label="Network">
+        <text size="2pt" />
+    </button>
+
+    <button id="settings" x="35pt" y="network.bottom+3pt" width="30pt" height="5pt" label="Settings">
+        <text size="2pt" />
+    </button>
+
+    <button id="quit" x="35pt" y="settings.bottom+3pt" width="30pt" height="5pt" label="Quit">
+        <text size="2pt" />
+    </button>
 </data>

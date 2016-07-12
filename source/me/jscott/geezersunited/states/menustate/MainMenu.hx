@@ -1,6 +1,8 @@
 package me.jscott.geezersunited.states.menustate;
 
 import flash.system.System;
+import flixel.FlxG;
+import me.jscott.geezersunited.states.matchstate.MatchState;
 import me.jscott.ui.Menu;
 import me.jscott.ui.controllers.Controller;
 
@@ -16,8 +18,9 @@ class MainMenu extends Menu {
     override public function AButtonEvent(sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>):Void {
         if (sender.name == "quit") {
             System.exit(0);
+        } else if (sender.name == "friendly") {
+            FlxG.switchState(new MatchState(lastUsedController));
         }
-        // } else if (sender.name == "joinnetworkgame") {
         //     openMenu(new NetworkGameMenu(menuHost, this));
         // } else if (params != null) {
         //     var type:String = params[0];

@@ -8,7 +8,6 @@ package me.jscott.geezersunited.states.matchstate;
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.util.FlxColor;
-import me.jscott.geezersunited.Reg;
 import flixel.math.FlxPoint;
 import flixel.math.FlxVelocity;
 import flixel.tweens.FlxTween;
