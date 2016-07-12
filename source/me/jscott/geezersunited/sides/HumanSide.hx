@@ -4,7 +4,7 @@ import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
 import me.jscott.Utils;
 import me.jscott.geezersunited.Reg;
-import me.jscott.geezersunited.controllers.Controller;
+import me.jscott.ui.controllers.Controller;
 import me.jscott.geezersunited.states.matchstate.MatchState;
 import me.jscott.geezersunited.states.matchstate.Player;
 

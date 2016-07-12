@@ -3,7 +3,7 @@ package me.jscott.geezersunited.states.matchstate;
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.util.FlxColor;
-import me.jscott.geezersunited.Reg;
+import me.jscott.Configuration;
 import flixel.math.FlxPoint;
 import flixel.math.FlxVelocity;
 import flixel.tweens.FlxTween;
@@ -19,17 +19,24 @@ class Player extends FlxNapeSprite {
     var num = 0;
     var teamColor:FlxColor;
 
-    public var formationPosition:FlxPoint;
+    public static var GK = 0;
+    public static var D = 1;
+    public static var M = 2;
+    public static var A = 3;
 
-    public function new(matchState:MatchState, teamColor: FlxColor, num:Int, x: Float, y: Float, isRight = false) {
+    public var formationPosition:FlxPoint;
+    public var role:Int;
+
+    public function new(matchState:MatchState, teamColor: FlxColor, num:Int, role:Int, x: Float, y: Float, isRight = false) {
         this.teamColor = teamColor;
         this.matchState = matchState;
+        this.role = role;
         this.num = num;
         super(x, y);
         
-        makeGraphic(Reg.PLAYER_WIDTH, Reg.PLAYER_HEIGHT, FlxColor.TRANSPARENT, true);
+        makeGraphic(Configuration.PLAYER_WIDTH, Configuration.PLAYER_HEIGHT, FlxColor.TRANSPARENT, true);
         drawSprite();
-        createCircularBody(Reg.BALL_WIDTH / 2);
+        createCircularBody(Configuration.BALL_WIDTH / 2);
         body.space = FlxNapeSpace.space;
 
         if (isRight) {
@@ -40,8 +47,8 @@ class Player extends FlxNapeSprite {
     }
 
     public function move(elapsed:Float) {
-        body.position.y -=  Math.cos(body.rotation) * Reg.TRAVEL_SPEED * elapsed;
-        body.position.x += Math.sin(body.rotation) * Reg.TRAVEL_SPEED * elapsed;
+        body.position.y -=  Math.cos(body.rotation) * Configuration.TRAVEL_SPEED * elapsed;
+        body.position.x += Math.sin(body.rotation) * Configuration.TRAVEL_SPEED * elapsed;
     }
 
     public function moveToPoint(point: FlxPoint, angle: Float, elapsed: Float) {
@@ -79,12 +86,12 @@ class Player extends FlxNapeSprite {
             differenceDown = currentAngle - targetAngle;
         }
 
-        var newAngle = currentAngle + Reg.ROTATION_SPEED * elapsed;
+        var newAngle = currentAngle + Configuration.ROTATION_SPEED * elapsed;
         if (differenceUp > differenceDown) {
-            newAngle = currentAngle - Reg.ROTATION_SPEED * elapsed;
+            newAngle = currentAngle - Configuration.ROTATION_SPEED * elapsed;
         }
 
-        if (Math.abs(newAngle - targetAngle) < Reg.ROTATION_SPEED * elapsed) {
+        if (Math.abs(newAngle - targetAngle) < Configuration.ROTATION_SPEED * elapsed) {
             newAngle = targetAngle;
         }
 
@@ -96,12 +103,12 @@ class Player extends FlxNapeSprite {
     function canKick(elapsed:Float) {
         // Check if the ball is in front of us, but not too far
         var position = new FlxPoint(body.position.x, body.position.y);
-        var inFront = new FlxPoint(body.position.x + Math.sin(body.rotation) * Reg.TRAVEL_SPEED * elapsed, body.position.y -  Math.cos(body.rotation) * Reg.TRAVEL_SPEED * elapsed);
+        var inFront = new FlxPoint(body.position.x + Math.sin(body.rotation) * Configuration.TRAVEL_SPEED * elapsed, body.position.y -  Math.cos(body.rotation) * Configuration.TRAVEL_SPEED * elapsed);
         var ballPosition = new FlxPoint(matchState.ball.body.position.x, matchState.ball.body.position.y);
 
         if (inFront.distanceTo(ballPosition) < position.distanceTo(ballPosition)) {
             // Is in front
-            return (inFront.distanceTo(ballPosition)) < Reg.KICK_DISTANCE;
+            return (inFront.distanceTo(ballPosition)) < Configuration.KICK_DISTANCE;
         }
 
         return false;
@@ -123,8 +130,8 @@ class Player extends FlxNapeSprite {
             c = highlightColor;
         }
 
-        FlxSpriteUtil.drawCircle(this, Std.int(Reg.PLAYER_WIDTH / 2), Std.int(Reg.PLAYER_WIDTH / 2), Std.int(Reg.BALL_WIDTH / 2), c);
-        FlxSpriteUtil.drawTriangle(this, 0, 0, Reg.PLAYER_HEIGHT, c);
+        FlxSpriteUtil.drawCircle(this, Std.int(Configuration.PLAYER_WIDTH / 2), Std.int(Configuration.PLAYER_WIDTH / 2), Std.int(Configuration.BALL_WIDTH / 2), c);
+        FlxSpriteUtil.drawTriangle(this, 0, 0, Configuration.PLAYER_HEIGHT, c);
 
         var stampText:FlxText = new FlxText(0, 0, Std.int(width), Std.string(num), 20);        
         stampText.alignment = "center";

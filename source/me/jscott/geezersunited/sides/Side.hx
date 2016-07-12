@@ -1,6 +1,8 @@
 package me.jscott.geezersunited.sides;
 
+import me.jscott.Utils;
 import me.jscott.geezersunited.states.matchstate.MatchState;
+import me.jscott.geezersunited.states.matchstate.Player;
 import flixel.math.FlxPoint;
 
 /**
@@ -24,17 +26,22 @@ class Side {
     }
 
     function controlPlayer(playerI:Int, elapsed:Float) {
-
         // Move to ensure that we're 50% between the ball's position and our "natural" position
         var player = matchState.players[side][playerI];
-
-        var targetPosition = new FlxPoint(player.formationPosition.x, player.formationPosition.y);
         var ballPosition = new FlxPoint(matchState.ball.body.position.x, matchState.ball.body.position.y);
-        var targetAngle = Utils.normaliseAngle(targetPosition.angleBetween(ballPosition));
 
-        // targetPosition.y -= Math.cos(targetAngle) * 10;
-        // targetPosition.x += Math.sin(targetAngle) * 10;
+        if (player.role == Player.GK) {
+            var targetPosition = new FlxPoint(player.formationPosition.x, player.formationPosition.y);
+            targetPosition.y = ballPosition.y;
+            var targetAngle = Utils.normaliseAngle(targetPosition.angleBetween(ballPosition));
+            player.moveToPoint(targetPosition, targetAngle, elapsed);
 
-        player.moveToPoint(targetPosition, targetAngle, elapsed);
+        } else {
+            
+        }
+
+        // targetPosition.x = (targetPosition.x + ballPosition.x) / 2;
+        // targetPosition.y = (targetPosition.y + ballPosition.y) / 2;
+
     }
 }

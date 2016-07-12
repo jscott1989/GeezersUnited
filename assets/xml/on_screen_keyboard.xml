@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+    <include name="definitions" />
+    <sprite x="0" y="0" width="screen.width" height="screen.height" color="0x40404011"/>
+
+    <sprite id="container" x="15pt" y="midpoint.y-18pt" width="screen.width-30pt" height="36pt" color="0x555555"/>
+
+    <text name="title" x="container.x" y="container.y+1pt" text="Input Title" width="container.width" use_def="popup_title" />
+
+    <input_text name="text" x="container.x+1pt" y="title.bottom+1pt" width="container.width-2pt" use_def="field" />
+
+    <definition name="key" width="5pt" height="5pt">
+        <text size="2pt" />
+    </definition>
+
+    <button id="q" x="container.x+6pt" y="text.bottom+1pt" use_def="key" label="q" />
+
+    <button id="w" x="q.right+1pt" y="q.top" use_def="key" label="w" />
+
+    <button id="e" x="w.right+1pt" y="w.top" use_def="key" label="e" />
+
+    <button id="r" x="e.right+1pt" y="e.top" use_def="key" label="r" />
+
+    <button id="t" x="r.right+1pt" y="r.top" use_def="key" label="t" />
+
+    <button id="y" x="t.right+1pt" y="t.top" use_def="key" label="y" />
+
+    <button id="u" x="y.right+1pt" y="y.top" use_def="key" label="u" />
+
+    <button id="i" x="u.right+1pt" y="u.top" use_def="key" label="i" />
+
+    <button id="o" x="i.right+1pt" y="i.top" use_def="key" label="o" />
+
+    <button id="p" x="o.right+1pt" y="o.top" use_def="key" label="p" />
+
+    <button id="a" x="q.x+3pt" y="q.bottom+0.5pt" use_def="key" label="a" />
+
+    <button id="s" x="a.right+1pt" y="a.y" use_def="key" label="s" />
+
+    <button id="d" x="s.right+1pt" y="s.y" use_def="key" label="d" />
+
+    <button id="f" x="d.right+1pt" y="d.y" use_def="key" label="f" />
+
+    <button id="g" x="f.right+1pt" y="f.y" use_def="key" label="g" />
+
+    <button id="h" x="g.right+1pt" y="g.y" use_def="key" label="h" />
+
+    <button id="j" x="h.right+1pt" y="h.y" use_def="key" label="j" />
+
+    <button id="k" x="j.right+1pt" y="j.y" use_def="key" label="k" />
+
+    <button id="l" x="k.right+1pt" y="k.y" use_def="key" label="l" />
+
+    <button id="shift" x="q.x" y="a.bottom+1pt" width="8pt" use_def="key" label="ABC" />
+
+    <button id="z" x="shift.right+1pt" y="shift.y" use_def="key" label="z" />
+
+    <button id="x" x="z.right+1pt" y="z.y" use_def="key" label="x" />
+
+    <button id="c" x="x.right+1pt" y="x.y" use_def="key" label="c" />
+
+    <button id="v" x="c.right+1pt" y="c.y" use_def="key" label="v" />
+
+    <button id="b" x="v.right+1pt" y="v.y" use_def="key" label="b" />
+
+    <button id="n" x="b.right+1pt" y="b.y" use_def="key" label="n" />
+
+    <button id="m" x="n.right+1pt" y="n.y" use_def="key" label="m" />
+
+    <button id="delete" x="m.right+1pt" y="m.y" width="8pt" use_def="key" label="Delete" />
+
+    <button id="alt" x="shift.x" y="shift.bottom+0.5pt" width="11pt" use_def="key" label="Alt" />
+
+    <button id="comma" x="alt.right+1pt" y="alt.top" use_def="key" label="," />
+
+    <button id="space" x="comma.right+1pt" y="comma.top" width="18pt" use_def="key" label="Space" />
+
+    <button id="fullstop" x="space.right+1pt" y="space.top" use_def="key" label="." />
+
+    <button id="done" x="fullstop.right+1pt" y="fullstop.top" width="16pt" use_def="key" label="Done" />
+</data>

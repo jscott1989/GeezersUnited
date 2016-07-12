@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+    <point_size x="screen.width*0.01" y="screen.width*0.01"/>
+    <definition name="title_text" size="8pt" style="bold" outline="0x000000" width="screen.width" align="center" x="0" color="0xffffff"/>
+
+    <definition name="subtitle_text" size="4pt" style="bold" outline="0x000000" width="screen.width" align="center" x="0" color="0xffffff"/>
+
+    <definition name="popup_title" size="4pt" style="bold" outline="0x000000" align="center" color="0xffffff"/>
+    <definition name="popup_field_title" size="2pt" style="bold" outline="0x000000" color="0xffffff"/>
+
+    <definition name="field" size="2pt" height="3pt" background="0x444444" />
+
+    <definition name="popup_button" height="4pt">
+        <text size="2pt" />
+    </definition>
+</data>

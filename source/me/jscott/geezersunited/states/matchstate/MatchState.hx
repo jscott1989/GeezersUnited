@@ -5,8 +5,8 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.nape.FlxNapeSpace;
 import flixel.util.FlxColor;
-import me.jscott.geezersunited.Reg;
-import me.jscott.geezersunited.controllers.KeyboardController;
+import me.jscott.Configuration;
+import me.jscott.ui.controllers.KeyboardController;
 import me.jscott.geezersunited.sides.AISide;
 import me.jscott.geezersunited.sides.HumanSide;
 import me.jscott.geezersunited.sides.Side;
@@ -55,8 +55,8 @@ class MatchState extends FlxState {
 
         super.create();
 
-        pitch = new FlxSprite((FlxG.width / 2) - (Reg.PITCH_WIDTH / 2), (FlxG.height / 2) - (Reg.PITCH_HEIGHT / 2));
-        pitch.makeGraphic(Reg.PITCH_WIDTH, Reg.PITCH_HEIGHT, FlxColor.GREEN);
+        pitch = new FlxSprite((FlxG.width / 2) - (Configuration.PITCH_WIDTH / 2), (FlxG.height / 2) - (Configuration.PITCH_HEIGHT / 2));
+        pitch.makeGraphic(Configuration.PITCH_WIDTH, Configuration.PITCH_HEIGHT, FlxColor.GREEN);
         add(pitch);
 
         var wallWidth = 10;
@@ -144,7 +144,7 @@ class MatchState extends FlxState {
         var r = new Array<Player>();
         for (i in 0...5) {
             var color = isRight ? FlxColor.BLUE : FlxColor.BLACK;
-            var player = new Player(this, color, i + 1, 0, 0, isRight);
+            var player = new Player(this, color, i + 1, 0, 0, 0, isRight);
             r.push(player);
         }
         return r;
@@ -177,6 +177,8 @@ class MatchState extends FlxState {
             } else {
                 players[i].body.rotation = Utils.degToRad(90);
             }
+
+            players[i].role = formation.roles[i];
         }
     }
 
@@ -196,11 +198,11 @@ class MatchState extends FlxState {
             }
             timeText.text = Std.string(minutes) + ":" + secondsText;
 
-            if (ball.body.position.x - Reg.BALL_WIDTH / 2 > rightGoalBase.x && ball.body.position.y - Reg.BALL_WIDTH / 2 > rightGoalBase.y && ball.body.position.y + Reg.BALL_WIDTH / 2 < rightGoalBase.y + rightGoalBase.height) {
+            if (ball.body.position.x - Configuration.BALL_WIDTH / 2 > rightGoalBase.x && ball.body.position.y - Configuration.BALL_WIDTH / 2 > rightGoalBase.y && ball.body.position.y + Configuration.BALL_WIDTH / 2 < rightGoalBase.y + rightGoalBase.height) {
                 score(1);
             }
 
-            if (ball.body.position.x + Reg.BALL_WIDTH / 2 < leftGoalBase.x + leftGoalBase.width && ball.body.position.y - Reg.BALL_WIDTH / 2 > leftGoalBase.y && ball.body.position.y + Reg.BALL_WIDTH / 2 < leftGoalBase.y + leftGoalBase.height) {
+            if (ball.body.position.x + Configuration.BALL_WIDTH / 2 < leftGoalBase.x + leftGoalBase.width && ball.body.position.y - Configuration.BALL_WIDTH / 2 > leftGoalBase.y && ball.body.position.y + Configuration.BALL_WIDTH / 2 < leftGoalBase.y + leftGoalBase.height) {
                 score(2);
             }
         }

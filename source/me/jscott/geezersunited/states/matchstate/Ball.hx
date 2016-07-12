@@ -3,7 +3,7 @@ package me.jscott.geezersunited.states.matchstate;
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.util.FlxColor;
-import me.jscott.geezersunited.Reg;
+import me.jscott.Configuration;
 import flixel.math.FlxPoint;
 import flixel.math.FlxVelocity;
 import flixel.tweens.FlxTween;
@@ -16,10 +16,10 @@ class Ball extends FlxNapeSprite {
 	public function new(x: Float, y: Float) {
 		super(x, y);
 
-                makeGraphic(Reg.BALL_WIDTH, Reg.BALL_WIDTH, FlxColor.TRANSPARENT);
-                FlxSpriteUtil.drawCircle(this, Std.int(Reg.BALL_WIDTH / 2), Std.int(Reg.BALL_WIDTH / 2), Std.int(Reg.BALL_WIDTH / 2), FlxColor.ORANGE);
-                setSize(Reg.BALL_WIDTH, Reg.BALL_WIDTH);
-                createCircularBody(Reg.BALL_WIDTH / 2);
+                makeGraphic(Configuration.BALL_WIDTH, Configuration.BALL_WIDTH, FlxColor.TRANSPARENT);
+                FlxSpriteUtil.drawCircle(this, Std.int(Configuration.BALL_WIDTH / 2), Std.int(Configuration.BALL_WIDTH / 2), Std.int(Configuration.BALL_WIDTH / 2), FlxColor.ORANGE);
+                setSize(Configuration.BALL_WIDTH, Configuration.BALL_WIDTH);
+                createCircularBody(Configuration.BALL_WIDTH / 2);
 
                 setBodyMaterial(0.5, 0.5, 0.5, 2);
                 body.space = FlxNapeSpace.space;
@@ -28,7 +28,7 @@ class Ball extends FlxNapeSprite {
 	}
 
         public function kick(angle:Float) {
-                body.velocity.y = 0 - Math.cos(angle) * Reg.KICK_SPEED;
-                body.velocity.x = Math.sin(angle) * Reg.KICK_SPEED;
+                body.velocity.y = 0 - Math.cos(angle) * Configuration.KICK_SPEED;
+                body.velocity.x = Math.sin(angle) * Configuration.KICK_SPEED;
         }
 }
