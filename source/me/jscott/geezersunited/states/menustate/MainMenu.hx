@@ -9,6 +9,12 @@ import me.jscott.ui.controllers.Controller;
 class MainMenu extends Menu {
 
     var lastUsedController:Controller;
+    var menuState:MenuState;
+
+    public function new(menuState:MenuState) {
+        super(menuState, menuState);
+        this.menuState = menuState;
+    }
 
     override public function create():Void {
         _xml_id = "main_menu";
@@ -19,7 +25,7 @@ class MainMenu extends Menu {
         if (sender.name == "quit") {
             System.exit(0);
         } else if (sender.name == "friendly") {
-            FlxG.switchState(new MatchState(lastUsedController));
+            FlxG.switchState(new MatchState(menuState.controllers, menuState.loadedGamepads, lastUsedController));
         }
         //     openMenu(new NetworkGameMenu(menuHost, this));
         // } else if (params != null) {

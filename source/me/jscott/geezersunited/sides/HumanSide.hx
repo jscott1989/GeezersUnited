@@ -22,8 +22,8 @@ class HumanSide extends Side {
     // TODO: if we allow more than one controller per side - have multiple colours too
     static var colors = [FlxColor.PINK, FlxColor.RED];
 
-    public function new(side:Int, matchState: MatchState, controller: Controller) {
-        this.controller = controller;
+    public function new(side:Int, matchState: MatchState, controllers: Array<Controller>) {
+        this.controller = controllers[0];
         super(side, matchState);
     }
 

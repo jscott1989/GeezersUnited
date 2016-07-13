@@ -12,8 +12,8 @@ import me.jscott.ui.controllers.KeyboardController;
 
 class MenuState extends FlxUIState implements MenuHost {
 
-    var controllers:Array<Controller>;
-    var loadedGamepads = new Array<flixel.input.gamepad.FlxGamepad>();
+    public var controllers:Array<Controller>;
+    public var loadedGamepads = new Array<flixel.input.gamepad.FlxGamepad>();
 
     var menu:Menu;
 
@@ -24,6 +24,7 @@ class MenuState extends FlxUIState implements MenuHost {
             // We want to allow all controllers
             controllers = new Array<Controller>();
             controllers.push(new KeyboardController());
+            controllers.push(new KeyboardController("1", "2", "I", "K", "J", "L", "Q", "W", "E", "R", "T", "Y"));
 
             for (gamepad in FlxG.gamepads.getActiveGamepads()) {
                 if (loadedGamepads.indexOf(gamepad) == -1) {
@@ -37,7 +38,7 @@ class MenuState extends FlxUIState implements MenuHost {
 
 	override public function create():Void {
         super.create();
-        openMenu(new MainMenu(this, this));
+        openMenu(new MainMenu(this));
 	}
 
 	override public function update(elapsed:Float) {

@@ -2,57 +2,95 @@ package me.jscott.ui.controllers;
 
 import flixel.FlxG;
 
+using Reflect;
+
 class KeyboardController extends Controller {
-    public function new() {
-        
+    var startButton:String;
+    var selectButton:String;
+    var upButton:String;
+    var downButton:String;
+    var leftButton:String;
+    var rightButton:String;
+    var aButton:String;
+    var bButton:String;
+    var xButton:String;
+    var yButton:String;
+    var lBumper:String;
+    var rBumper:String;
+
+    public function new(startButton:String = "ENTER",
+                        selectButton:String = "ESCAPE",
+                        upButton:String = "UP",
+                        downButton:String = "DOWN",
+                        leftButton:String = "LEFT",
+                        rightButton:String = "RIGHT",
+                        aButton:String = "Z",
+                        bButton:String = "X",
+                        xButton:String = "C",
+                        yButton:String = "V",
+                        lBumper:String = "B",
+                        rBumper:String = "N") {
+        this.startButton = startButton;
+        this.selectButton = selectButton;
+        this.upButton = upButton;
+        this.downButton = downButton;
+        this.leftButton = leftButton;
+        this.rightButton = rightButton;
+        this.aButton = aButton;
+        this.bButton = bButton;
+        this.xButton = xButton;
+        this.yButton = yButton;
+        this.lBumper = lBumper;
+        this.rBumper = rBumper;
+
     }
 
     public override function startPressed() {
-        return FlxG.keys.pressed.ENTER;
+        return FlxG.keys.anyPressed([startButton]);
     }
 
     public override function selectPressed() {
-        return FlxG.keys.pressed.ESCAPE;
+        return FlxG.keys.anyPressed([selectButton]);
     }
 
     public override function upPressed() {
-        return FlxG.keys.pressed.UP;
+        return FlxG.keys.anyPressed([upButton]);
     }
 
     public override function downPressed() {
-        return FlxG.keys.pressed.DOWN;
+        return FlxG.keys.anyPressed([downButton]);
     }
 
     public override function leftPressed() {
-        return FlxG.keys.pressed.LEFT;
+        return FlxG.keys.anyPressed([leftButton]);
     }
 
     public override function rightPressed() {
-        return FlxG.keys.pressed.RIGHT;
+        return FlxG.keys.anyPressed([rightButton]);
     }
 
     public override function aPressed() {
-        return FlxG.keys.pressed.Z;
+        return FlxG.keys.anyPressed([aButton]);
     }
 
     public override function bPressed() {
-        return FlxG.keys.pressed.X;
+        return FlxG.keys.anyPressed([bButton]);
     }
 
     public override function xPressed() {
-        return FlxG.keys.pressed.C;
+        return FlxG.keys.anyPressed([xButton]);
     }
 
     public override function yPressed() {
-        return FlxG.keys.pressed.V;
+        return FlxG.keys.anyPressed([yButton]);
     }
 
     public override function lBumperPressed() {
-        return FlxG.keys.pressed.B;
+        return FlxG.keys.anyPressed([lBumper]);
     }
 
     public override function rBumperPressed() {
-        return FlxG.keys.pressed.N;
+        return FlxG.keys.anyPressed([rBumper]);
     }
 
     public override function isKeyboard() {

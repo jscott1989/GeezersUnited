@@ -2,18 +2,31 @@ package me.jscott.geezersunited.states.matchstate;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxState;
 import flixel.addons.nape.FlxNapeSpace;
+import flixel.addons.ui.FlxUIState;
+import flixel.math.FlxPoint;
+import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import me.jscott.Configuration;
-import me.jscott.ui.controllers.Controller;
+import me.jscott.Utils;
+import me.jscott.geezersunited.Formation;
 import me.jscott.geezersunited.sides.AISide;
 import me.jscott.geezersunited.sides.HumanSide;
 import me.jscott.geezersunited.sides.Side;
-import flixel.text.FlxText;
-import flixel.math.FlxPoint;
+import me.jscott.ui.Menu;
+import me.jscott.ui.MenuHost;
+import me.jscott.ui.controllers.Controller;
+import me.jscott.ui.controllers.KeyboardController;
+import me.jscott.ui.controllers.GamepadController;
+import flixel.input.gamepad.FlxGamepad;
 
-class MatchState extends FlxState {
+class MatchState extends FlxUIState implements MenuHost {
+
+    var menu:Menu;
+
+    var controllers:Array<Controller>;
+    var loadedGamepads = new Array<FlxGamepad>();
+    var defaultController:Controller;
 
     public var timeRemaining:Float;
     public var score1:Int;
@@ -36,10 +49,28 @@ class MatchState extends FlxState {
     var leftGoalBase:FlxSprite;
     var rightGoalBase:FlxSprite;
 
-    public function new(controller:Controller) {
+    public function new(controllers:Array<Controller>, loadedGamepads:Array<FlxGamepad>, controller:Controller) {
         super();
-        side1 = new HumanSide(0, this, controller);
-        side2 = new AISide(1, this);
+
+        this.controllers = controllers;
+        this.loadedGamepads = loadedGamepads;
+        this.defaultController = controller;
+    }
+
+    public function setControllers(controllers1:Array<Controller>, controllers2:Array<Controller>) {
+        if (controllers1.length == 0) {
+            side1 = new AISide(0, this);
+        } else {
+            side1 = new HumanSide(0, this, controllers1);
+        }
+
+        if (controllers2.length == 0) {
+            side2 = new AISide(1, this);
+        } else {
+            side2 = new HumanSide(1, this, controllers2);
+        }
+
+        resetState();
     }
 
     override public function create():Void {
@@ -140,7 +171,7 @@ class MatchState extends FlxState {
             add(player);
         }
 
-        resetState();
+        openMenu(new SelectSideMenu(this, defaultController));
     }
 
     function createPlayers(isRight=false) {
@@ -186,29 +217,46 @@ class MatchState extends FlxState {
     }
 
     override public function update(elapsed:Float):Void {
-        super.update(elapsed);
+        if (menu == null) {
+            super.update(elapsed);
 
-        side1.update(elapsed);
-        side2.update(elapsed);
+            side1.update(elapsed);
+            side2.update(elapsed);
 
-        if (inPlay) {
-            timeRemaining -= elapsed;
-            var minutes = Std.int(timeRemaining/60);
-            var seconds = Std.int(timeRemaining - minutes * 60);
-            var secondsText = Std.string(seconds);
-            if (secondsText.length == 1) {
-                secondsText = "0" + secondsText;
+            if (inPlay) {
+                timeRemaining -= elapsed;
+                var minutes = Std.int(timeRemaining/60);
+                var seconds = Std.int(timeRemaining - minutes * 60);
+                var secondsText = Std.string(seconds);
+                if (secondsText.length == 1) {
+                    secondsText = "0" + secondsText;
+                }
+                timeText.text = Std.string(minutes) + ":" + secondsText;
+
+                if (ball.body.position.x - Configuration.BALL_WIDTH / 2 > rightGoalBase.x && ball.body.position.y - Configuration.BALL_WIDTH / 2 > rightGoalBase.y && ball.body.position.y + Configuration.BALL_WIDTH / 2 < rightGoalBase.y + rightGoalBase.height) {
+                    score(1);
+                }
+
+                if (ball.body.position.x + Configuration.BALL_WIDTH / 2 < leftGoalBase.x + leftGoalBase.width && ball.body.position.y - Configuration.BALL_WIDTH / 2 > leftGoalBase.y && ball.body.position.y + Configuration.BALL_WIDTH / 2 < leftGoalBase.y + leftGoalBase.height) {
+                    score(2);
+                }
             }
-            timeText.text = Std.string(minutes) + ":" + secondsText;
+        } else {
+            updateMenu(elapsed);
+        }
+    }
 
-            if (ball.body.position.x - Configuration.BALL_WIDTH / 2 > rightGoalBase.x && ball.body.position.y - Configuration.BALL_WIDTH / 2 > rightGoalBase.y && ball.body.position.y + Configuration.BALL_WIDTH / 2 < rightGoalBase.y + rightGoalBase.height) {
-                score(1);
-            }
-
-            if (ball.body.position.x + Configuration.BALL_WIDTH / 2 < leftGoalBase.x + leftGoalBase.width && ball.body.position.y - Configuration.BALL_WIDTH / 2 > leftGoalBase.y && ball.body.position.y + Configuration.BALL_WIDTH / 2 < leftGoalBase.y + leftGoalBase.height) {
-                score(2);
+    function updateMenu(elapsed:Float) {
+        // Check for new gamepads
+        for (gamepad in FlxG.gamepads.getActiveGamepads()) {
+            if (loadedGamepads.indexOf(gamepad) == -1) {
+                controllers.push(new GamepadController(gamepad));
+                loadedGamepads.push(gamepad);
             }
         }
+
+        // TODO: Pass new controllers into menu
+        menu.update(elapsed);
     }
 
     function resetState() {
@@ -221,8 +269,12 @@ class MatchState extends FlxState {
         ball.body.velocity.x = 0;
         ball.body.velocity.y = 0;
 
-        side1.resetState();
-        side2.resetState();
+        if (side1 != null) {
+            side1.resetState();
+        }
+        if (side2 != null) {
+            side2.resetState();
+        }
     }
 
     public function score(side:Int) {
@@ -240,5 +292,40 @@ class MatchState extends FlxState {
                 resetState();
         },
         3000);
+    }
+
+    public function addToUI(i:FlxSprite) {
+        add(i);
+    }
+
+    public function removeFromUI(i:FlxSprite) {
+        remove(i);
+    }
+
+    public function getCameraOffset() {
+        return new FlxPoint(0, 0);
+    }
+
+    public function isSplitScreen() {
+        return false;
+    }
+
+    public override function getEvent(name:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>):Void {
+        if (menu != null) {
+            menu.getEvent(name, sender, data, params);
+        }
+    }
+
+    public function openMenu(menu:Menu) {
+        menu.create();
+        this.menu = menu;
+    }
+
+    public function closeMenu() {
+        this.menu = null;
+    }
+
+    public function getControllers():Array<Controller> {
+        return controllers;
     }
 }

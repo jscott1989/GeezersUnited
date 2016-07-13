@@ -12,11 +12,7 @@
         <text size="2pt" />
     </button>
 
-    <button id="network" x="35pt" y="league.bottom+3pt" width="30pt" height="5pt" label="Network">
-        <text size="2pt" />
-    </button>
-
-    <button id="settings" x="35pt" y="network.bottom+3pt" width="30pt" height="5pt" label="Settings">
+    <button id="settings" x="35pt" y="league.bottom+3pt" width="30pt" height="5pt" label="Settings">
         <text size="2pt" />
     </button>
 
