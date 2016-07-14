@@ -1,0 +1,242 @@
+teams:
+  -
+    id: 0
+    name: Man Chest Hair United
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  -
+    id: 1
+    name: Lessthan Athletic
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  -
+    id: 2
+    name: Sporting Abeergut
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  -
+    id: 3
+    name: Real Ale Madrid
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  -
+    id: 4
+    name: Dyslexia Untied
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  -
+    id: 5
+    name: TFC Twente Somethings
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  -
+    id: 6
+    name: Fatzio
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  -
+    id: 7
+    name: The Boca Seniors
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  -
+    id: 8
+    name: Rapid Viagra
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  -
+    id: 9
+    name: Real Social-Dads
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  -
+    id: 10
+    name: Manchester Obesity
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  -
+    id: 11
+    name: AC Dead People
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  -
+    id: 12
+    name: Obi Wan Kenobi Nil
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  -
+    id: 13
+    name: The Gerri Hatricks
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  -
+    id: 14
+    name: Portugeezers
+    players:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+players:
+  -
+    id: 1
+    name: Jonathan Scott
+  -
+    id: 2
+    name: Tom Blount
+  -
+    id: 3
+    name: Rikki Prince
+  -
+    id: 4
+    name: Charlie Hargood
+  -
+    id: 5
+    name: Xiyun Weng
+  -
+    id: 6
+    name: Zico
+  -
+    id: 7
+    name: Marco Van Basten
+  -
+    id: 8
+    name: Romario
+  -
+    id: 9
+    name: Lev Yashin
+  -
+    id: 10
+    name: Jose Andrade

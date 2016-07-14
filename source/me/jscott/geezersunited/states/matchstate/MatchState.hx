@@ -19,6 +19,7 @@ import me.jscott.ui.controllers.Controller;
 import me.jscott.ui.controllers.KeyboardController;
 import me.jscott.ui.controllers.GamepadController;
 import flixel.input.gamepad.FlxGamepad;
+import me.jscott.geezersunited.data.TeamDefinition;
 
 class MatchState extends FlxUIState implements MenuHost {
 
@@ -32,7 +33,7 @@ class MatchState extends FlxUIState implements MenuHost {
     public var score1:Int;
     public var score2:Int;
 
-    var inPlay = true;
+    var inPlay = false;
 
     var scoreText:FlxText;
     var timeText:FlxText;
@@ -49,12 +50,17 @@ class MatchState extends FlxUIState implements MenuHost {
     var leftGoalBase:FlxSprite;
     var rightGoalBase:FlxSprite;
 
-    public function new(controllers:Array<Controller>, loadedGamepads:Array<FlxGamepad>, controller:Controller) {
+    public var team1:TeamDefinition;
+    public var team2:TeamDefinition;
+
+    public function new(team1:TeamDefinition, team2:TeamDefinition, controllers:Array<Controller>, loadedGamepads:Array<FlxGamepad>, controller:Controller) {
         super();
 
         this.controllers = controllers;
         this.loadedGamepads = loadedGamepads;
         this.defaultController = controller;
+        this.team1 = team1;
+        this.team2 = team2;
     }
 
     public function setControllers(controllers1:Array<Controller>, controllers2:Array<Controller>) {
@@ -75,7 +81,7 @@ class MatchState extends FlxUIState implements MenuHost {
 
     override public function create():Void {
         timeText = new FlxText(0, 10, FlxG.width, "2:30", 20);
-        scoreText = new FlxText(0, timeText.y + timeText.height * 1.1, FlxG.width, "0 - 0", 40);
+        scoreText = new FlxText(0, timeText.y + timeText.height * 1.1, FlxG.width, team1.getName() + " 0 - 0 " + team2.getName(), 20);
         timeText.alignment = "center";
         scoreText.alignment = "center";
         add(timeText);
@@ -284,7 +290,7 @@ class MatchState extends FlxUIState implements MenuHost {
             score2 += 1;
         }
 
-        scoreText.text = Std.string(score1) + " - " + Std.string(score2);
+        scoreText.text = team1.getName() + " " + Std.string(score1) + " - " + Std.string(score2) + " " + team2.getName();
         inPlay = false;
 
         haxe.Timer.delay(

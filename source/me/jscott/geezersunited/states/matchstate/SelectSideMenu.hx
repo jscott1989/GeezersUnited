@@ -5,6 +5,7 @@ import me.jscott.ui.controllers.Controller;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.FlxG;
+import flixel.addons.ui.FlxUIText;
 
 class SelectSideMenu extends Menu {
     var loadedControllerCount = 0;
@@ -24,6 +25,11 @@ class SelectSideMenu extends Menu {
     override public function create():Void {
         _xml_id = "select_side";
         super.create();
+
+        var team1_name:FlxUIText = cast _ui.getAsset("team1_name");
+        var team2_name:FlxUIText = cast _ui.getAsset("team2_name");
+        team1_name.text = matchState.team1.getName();
+        team2_name.text = matchState.team2.getName();
 
         // Now we want to add an icon representing each enabled controller
         for (controller in menuHost.getControllers()) {

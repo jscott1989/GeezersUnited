@@ -43,6 +43,7 @@
 
 	<!--In case you want to use nape with flixel-->
 	<haxelib name="nape" />
+	<haxelib name="yaml" />
 
 	<haxeflag name="-dce full" />
 	<!-- for haxeflixel. if -dce full -->

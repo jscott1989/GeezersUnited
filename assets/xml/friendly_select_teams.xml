@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+    <include name="definitions" />
+    <sprite x="0" y="0" width="screen.width" height="screen.height" color="0x404040"/>
+    <text name="title" y="10" text="Select Teams" use_def="title_text"/>
+
+    <text name="team1_title" x="10pt" y="title.bottom+5pt" text="Home" width="10pt" size="2pt" />
+    <text name="team2_title" x="screen.width-20pt" y="title.bottom+5pt" text="Away" size="2pt" width="10pt" />
+
+
+    <text name="team1_name" x="team1_title.x-10pt" y="team1_title.bottom+5pt" text="Team 1" width="40pt" size="2pt" align="center" />
+    <text name="team2_name" x="team2_title.x-20pt" y="team2_title.bottom+5pt" text="Team 2" width="40pt" size="2pt" align="center" />
+</data>

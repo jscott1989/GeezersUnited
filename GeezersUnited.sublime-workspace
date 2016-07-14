@@ -48,9 +48,13 @@
 	"command_palette":
 	{
 		"height": 127.0,
-		"last_filter": "import",
+		"last_filter": "lower",
 		"selected_items":
 		[
+			[
+				"lower",
+				"Convert Case: Lower Case"
+			],
 			[
 				"import",
 				"Haxe: Organize Imports"
@@ -119,12 +123,11 @@
 	[
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/data",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/menustate",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui",
@@ -132,26 +135,42 @@
 	],
 	"file_history":
 	[
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/controllers/Controller.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/leaguestate/LeagueState.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/TeamDefinition.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/data/PlayerDefinition.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/data/teams.yaml",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/leaguestate/Team.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/menustate/MainMenu.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/leaguestate/LeagueMenu.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/leaguestate.hx/LeagueMenu.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/league.xml",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/main_menu.xml",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/leaguestate.hx/LeagueState.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/sides/HumanSide.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/TacticsMenu.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/menustate/MenuState.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/SelectSideMenu.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/controllers/Controller.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/MenuHost.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/controllers/KeyboardController.hx",
+		"/Users/jonathan/Documents/Programming/haxe/usr/local/lib/haxelib/flixel/4,0,1/flixel/FlxG.hx",
+		"/Users/jonathan/Documents/Programming/haxe/usr/local/lib/haxelib/flixel/4,0,1/flixel/input/keyboard/FlxKeyboard.hx",
+		"/Users/jonathan/Documents/Programming/haxe/usr/local/lib/haxelib/flixel/4,0,1/flixel/system/frontEnds/InputFrontEnd.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/select_side.xml",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/Menu.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/side_select.xml",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Wall.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/sides/Side.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/menustate/MainMenu.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/Menu.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/main_menu.xml",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/FrtUI.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/FrtUICursor.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/controllers/Controllable.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/menustate/MenuState.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/Main.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/menustate/N.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/controllers/KeyboardController.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/MenuHost.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/definitions.xml",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/Configuration.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/controllers/GamepadController.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Ball.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/OnScreenKeyboardMenu.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/FrtUIInputText.hx",
@@ -243,23 +262,7 @@
 		"/Users/jonathan/Documents/Programming/python/happening-comments/src/tasks.py",
 		"/Users/jonathan/Documents/Programming/python/happening/src/assets/js/main.js",
 		"/Users/jonathan/Documents/Programming/python/happening/src/assets/js/blocks/form/duration-widget.js",
-		"/Users/jonathan/Documents/Programming/python/happening-groups/src/forms.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/assets/js/blocks/purchase-tickets-widget.js",
-		"/Users/jonathan/Documents/Programming/python/happening/src/events/forms.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/admin/views.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/templates/admin/backup.html",
-		"/Users/jonathan/Documents/Programming/python/happening/src/admin/tasks.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/templates/base.html",
-		"/Users/jonathan/Documents/Programming/python/happening/src/admin/urls.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/htmlcov/admin_urls_py.html",
-		"/Users/jonathan/Documents/Programming/python/happening-comments/src/views.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/admin/models.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/happening/celery.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/.env",
-		"/Users/jonathan/Documents/Programming/python/happening/src/happening/urls.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/requirements.txt",
-		"/Users/jonathan/Documents/Programming/python/happening/src/happening/plugins.py",
-		"/Users/jonathan/Documents/Programming/python/happening/src/events/tasks.py"
+		"/Users/jonathan/Documents/Programming/python/happening-groups/src/forms.py"
 	],
 	"find":
 	{
@@ -294,6 +297,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"flxgamepad",
+			"resetState",
+			"sprite",
+			"inputs",
+			"keys =",
+			"keys",
+			"addto",
 			"configur",
 			"reg",
 			"new",
@@ -414,14 +424,7 @@
 			"periodictasks",
 			"periodically",
 			"periodic",
-			"static",
-			"ql-container",
-			"jquery",
-			"class TicketTime",
-			"enableddisabled",
-			"email attend",
-			"dragdrop",
-			"Block = ({"
+			"static"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -494,6 +497,78 @@
 		"selected_items":
 		[
 			[
+				"player",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx"
+			],
+			[
+				"leaguestate",
+				"GeezersUnited/source/me/jscott/geezersunited/states/leaguestate/LeagueState.hx"
+			],
+			[
+				"mainmneu",
+				"GeezersUnited/source/me/jscott/geezersunited/states/menustate/MainMenu.hx"
+			],
+			[
+				"main",
+				"GeezersUnited/assets/xml/main_menu.xml"
+			],
+			[
+				"selectsideme",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/SelectSideMenu.hx"
+			],
+			[
+				"humansid",
+				"GeezersUnited/source/me/jscott/geezersunited/sides/HumanSide.hx"
+			],
+			[
+				"matchsta",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
+			],
+			[
+				"menuhost",
+				"GeezersUnited/source/me/jscott/ui/MenuHost.hx"
+			],
+			[
+				"mainmenu",
+				"GeezersUnited/source/me/jscott/geezersunited/states/menustate/MainMenu.hx"
+			],
+			[
+				"flxkeyba",
+				"Flixel/flixel/input/keyboard/FlxKeyboard.hx"
+			],
+			[
+				"inputfrontend",
+				"Flixel/flixel/system/frontEnds/InputFrontEnd.hx"
+			],
+			[
+				"flxg",
+				"Flixel/flixel/FlxG.hx"
+			],
+			[
+				"flxkeyb",
+				"Flixel/flixel/input/keyboard/FlxKeyboard.hx"
+			],
+			[
+				"flxkeyboard",
+				"Flixel/flixel/input/keyboard/FlxKeyboard.hx"
+			],
+			[
+				"controller",
+				"GeezersUnited/source/me/jscott/ui/controllers/Controller.hx"
+			],
+			[
+				"keyboardcontr",
+				"GeezersUnited/source/me/jscott/ui/controllers/KeyboardController.hx"
+			],
+			[
+				"menustate",
+				"GeezersUnited/source/me/jscott/geezersunited/states/menustate/MenuState.hx"
+			],
+			[
+				"menu.hx",
+				"GeezersUnited/source/me/jscott/ui/Menu.hx"
+			],
+			[
 				"wall",
 				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Wall.hx"
 			],
@@ -510,28 +585,12 @@
 				"GeezersUnited/source/me/jscott/geezersunited/sides/Side.hx"
 			],
 			[
-				"matchsta",
-				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
-			],
-			[
-				"controller",
-				"GeezersUnited/source/me/jscott/ui/controllers/Controller.hx"
-			],
-			[
 				"humans",
 				"GeezersUnited/source/me/jscott/geezersunited/sides/HumanSide.hx"
 			],
 			[
 				"matchstate",
 				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
-			],
-			[
-				"humansid",
-				"GeezersUnited/source/me/jscott/geezersunited/sides/HumanSide.hx"
-			],
-			[
-				"mainmenu",
-				"GeezersUnited/source/me/jscott/geezersunited/states/menustate/MainMenu.hx"
 			],
 			[
 				"main_",
@@ -544,10 +603,6 @@
 			[
 				"frtui",
 				"GeezersUnited/source/me/jscott/ui/FrtUI.hx"
-			],
-			[
-				"menu.hx",
-				"GeezersUnited/source/me/jscott/ui/Menu.hx"
 			],
 			[
 				"controllable",
@@ -566,18 +621,6 @@
 				"GeezersUnited/source/me/jscott/geezersunited/states/menustate/MenuState.hx"
 			],
 			[
-				"menustate",
-				"GeezersUnited/source/me/jscott/geezersunited/states/menustate/MenuState.hx"
-			],
-			[
-				"keyboardcontr",
-				"GeezersUnited/source/me/jscott/ui/controllers/KeyboardController.hx"
-			],
-			[
-				"menuhost",
-				"GeezersUnited/source/me/jscott/ui/MenuHost.hx"
-			],
-			[
 				"matchs",
 				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
 			],
@@ -591,10 +634,6 @@
 			],
 			[
 				"play",
-				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx"
-			],
-			[
-				"player",
 				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx"
 			],
 			[
@@ -968,42 +1007,6 @@
 			[
 				"adminviews",
 				"happening/src/admin/views.py"
-			],
-			[
-				"admintasks",
-				"happening/src/admin/tasks.py"
-			],
-			[
-				"base",
-				"happening/src/templates/base.html"
-			],
-			[
-				"backup.h",
-				"happening/src/templates/admin/backup.html"
-			],
-			[
-				"adminurls",
-				"happening/src/admin/urls.py"
-			],
-			[
-				"views",
-				"happening-comments/src/views.py"
-			],
-			[
-				"happenigntasks",
-				"happening/src/happening/tasks.py"
-			],
-			[
-				"celery",
-				"happening/src/happening/celery.py"
-			],
-			[
-				"packae",
-				"happening/src/package.json"
-			],
-			[
-				"adminmodesl",
-				"happening/src/admin/models.py"
 			]
 		],
 		"width": 0.0

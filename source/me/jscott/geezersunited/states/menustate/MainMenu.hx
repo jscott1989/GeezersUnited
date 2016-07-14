@@ -3,15 +3,16 @@ package me.jscott.geezersunited.states.menustate;
 import flash.system.System;
 import flixel.FlxG;
 import me.jscott.geezersunited.states.matchstate.MatchState;
+import me.jscott.geezersunited.states.leaguestate.LeagueState;
 import me.jscott.ui.Menu;
 import me.jscott.ui.controllers.Controller;
+import me.jscott.geezersunited.data.Data;
 
 class MainMenu extends Menu {
-
-    var lastUsedController:Controller;
     var menuState:MenuState;
 
     public function new(menuState:MenuState) {
+        Data.getData();
         super(menuState, menuState);
         this.menuState = menuState;
     }
@@ -25,19 +26,9 @@ class MainMenu extends Menu {
         if (sender.name == "quit") {
             System.exit(0);
         } else if (sender.name == "friendly") {
-            FlxG.switchState(new MatchState(menuState.controllers, menuState.loadedGamepads, lastUsedController));
+            openMenu(new FriendlySelectTeamsMenu(menuState, this));
+        } else if (sender.name == "league") {
+            FlxG.switchState(new LeagueState(menuState.controllers, menuState.loadedGamepads));
         }
-        //     openMenu(new NetworkGameMenu(menuHost, this));
-        // } else if (params != null) {
-        //     var type:String = params[0];
-        //     if (type == "play") {
-        //         startGame(params[1]);
-        //     }
-        // }
-    }
-
-    public override function pressA(controller:Controller, justPressed:Bool):Void {
-        lastUsedController = controller;
-        super.pressA(controller, justPressed);
     }
 }
