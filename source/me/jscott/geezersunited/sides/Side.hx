@@ -4,6 +4,7 @@ import me.jscott.Utils;
 import me.jscott.geezersunited.states.matchstate.MatchState;
 import me.jscott.geezersunited.states.matchstate.Player;
 import flixel.math.FlxPoint;
+import me.jscott.ui.controllers.Controller;
 
 /**
  * This represents the controllers of a team in a match
@@ -25,6 +26,10 @@ class Side {
         
     }
 
+    public function getControllers() {
+        return new Array<Controller>();
+    }
+
     function controlPlayer(playerI:Int, elapsed:Float) {
         // Move to ensure that we're 50% between the ball's position and our "natural" position
         var player = matchState.players[side][playerI];
@@ -42,6 +47,5 @@ class Side {
 
         // targetPosition.x = (targetPosition.x + ballPosition.x) / 2;
         // targetPosition.y = (targetPosition.y + ballPosition.y) / 2;
-
     }
 }

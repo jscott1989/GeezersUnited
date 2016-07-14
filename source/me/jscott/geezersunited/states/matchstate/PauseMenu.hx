@@ -1,10 +1,17 @@
 package me.jscott.geezersunited.states.matchstate;
 
 import flixel.FlxG;
-import me.jscott.ui.Menu;
 import me.jscott.geezersunited.states.menustate.MenuState;
+import me.jscott.ui.Menu;
 
 class PauseMenu extends Menu {
+
+    var matchState:MatchState;
+
+    public function new(matchState:MatchState) {
+        super(matchState, matchState);
+        this.matchState = matchState;
+    }
 
     override public function create():Void {
         _xml_id = "pause";
@@ -15,7 +22,8 @@ class PauseMenu extends Menu {
         if (sender.name == "continue") {
             close();
         } else if (sender.name == "tactics") {
-            // When we open tactics we need to split the screen
+            close();
+            matchState.openTactics();
         } else if (sender.name == "quit") {
             FlxG.switchState(new MenuState());
         }

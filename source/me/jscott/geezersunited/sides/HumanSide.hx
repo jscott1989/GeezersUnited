@@ -105,4 +105,8 @@ class HumanSide extends Side {
             matchState.pause();
         }
     }
+
+    public override function getControllers() {
+        return [controller];
+    }
 }

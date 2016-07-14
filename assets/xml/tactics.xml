@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+    <include name="definitions" />
+    <sprite name="background" x="25pt" y="25pt" width="50pt" height="50pt" color="0x404040"/>
+    <text name="title" y="background.y+1pt" text="Tactics" use_def="title_text"/>
+
+    <button id="continue" x="background.x+2pt" y="title.bottom+2pt" width="46pt" height="5pt" label="Continue">
+        <text size="2pt" />
+    </button>
+</data>

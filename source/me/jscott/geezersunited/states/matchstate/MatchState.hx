@@ -20,6 +20,8 @@ import me.jscott.ui.controllers.KeyboardController;
 import me.jscott.ui.controllers.GamepadController;
 import flixel.input.gamepad.FlxGamepad;
 import me.jscott.geezersunited.data.TeamDefinition;
+import flixel.FlxCamera;
+import flixel.group.FlxSpriteGroup;
 
 class MatchState extends FlxUIState implements MenuHost {
 
@@ -40,8 +42,8 @@ class MatchState extends FlxUIState implements MenuHost {
 
     var pitch: FlxSprite;
 
-    var side1:Side;
-    var side2:Side;
+    public var side1:Side;
+    public var side2:Side;
 
     public var ball:Ball;
 
@@ -52,6 +54,15 @@ class MatchState extends FlxUIState implements MenuHost {
 
     public var team1:TeamDefinition;
     public var team2:TeamDefinition;
+
+    var uicamera1:FlxCamera;
+    var uicamera2:FlxCamera;
+    var left:SplitScreenMenuHost;
+    var right:SplitScreenMenuHost;
+    var uiGroup1:FlxSpriteGroup;
+    var uiGroup2:FlxSpriteGroup;
+
+    var firstInitialisedTactics = false;
 
     public function new(team1:TeamDefinition, team2:TeamDefinition, controllers:Array<Controller>, loadedGamepads:Array<FlxGamepad>, controller:Controller) {
         super();
@@ -77,6 +88,11 @@ class MatchState extends FlxUIState implements MenuHost {
         }
 
         resetState();
+
+        if (!firstInitialisedTactics) {
+            firstInitialisedTactics = true;
+            openTactics();
+        }
     }
 
     override public function create():Void {
@@ -223,13 +239,13 @@ class MatchState extends FlxUIState implements MenuHost {
     }
 
     public function pause() {
-        openMenu(new PauseMenu(this, this));
+        openMenu(new PauseMenu(this));
     }
 
     override public function update(elapsed:Float):Void {
-        if (menu == null) {
-            super.update(elapsed);
+        super.update(elapsed);
 
+        if (menu == null && left == null && right == null) {
             side1.update(elapsed);
             side2.update(elapsed);
 
@@ -265,8 +281,15 @@ class MatchState extends FlxUIState implements MenuHost {
             }
         }
 
-        // TODO: Pass new controllers into menu
-        menu.update(elapsed);
+        if (menu != null) {
+            menu.update(elapsed);
+        } else {
+            if (left != null) {
+                left.update(elapsed);
+            } if (right != null) {
+                right.update(elapsed);
+            }
+        }
     }
 
     function resetState() {
@@ -323,6 +346,12 @@ class MatchState extends FlxUIState implements MenuHost {
     public override function getEvent(name:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>):Void {
         if (menu != null) {
             menu.getEvent(name, sender, data, params);
+        } else if (left != null) {
+            if (sender.x < uiGroup2.x) {
+                left.getEvent(name, sender, data, params);
+            } else {
+                right.getEvent(name, sender, data, params);
+            }
         }
     }
 
@@ -337,5 +366,59 @@ class MatchState extends FlxUIState implements MenuHost {
 
     public function getControllers():Array<Controller> {
         return controllers;
+    }
+
+    public function openTactics() {
+        uiGroup1 = new FlxSpriteGroup(10000, 0);
+        uiGroup2 = new FlxSpriteGroup(20000, 0);
+
+        var camera = new FlxCamera(0, 0, Std.int(FlxG.width), Std.int(FlxG.height));
+        var uicamera1 = new FlxCamera(0, 0, Std.int(FlxG.width/2), Std.int(FlxG.height));
+        var uicamera2 = new FlxCamera(Std.int(FlxG.width/2), 0, Std.int(FlxG.width/2), Std.int(FlxG.height));
+        FlxG.cameras.reset(camera);
+        FlxG.cameras.add(uicamera1);
+        FlxG.cameras.add(uicamera2);
+
+        add(uiGroup1);
+        add(uiGroup2);
+
+        left = new SplitScreenMenuHost(uiGroup1, uicamera1, side1.getControllers());
+        right = new SplitScreenMenuHost(uiGroup2, uicamera2, side2.getControllers());
+
+        var continued1 = false;
+        var continued2 = false;
+
+        function closeTactics() {
+            remove(uiGroup1);
+            remove(uiGroup2);
+            left.closeMenu();
+            right.closeMenu();
+            left = null;
+            right = null;
+        }
+
+        function continueTactics1() {
+            if (continued2) {
+                closeTactics();
+            } else {
+                continued1 = true;
+            }
+        }
+
+        function continueTactics2() {
+            if (continued1) {
+                closeTactics();
+            } else {
+                continued2 = true;
+            }
+        }
+
+
+
+        var tactics1 = new TacticsMenu(left, side1, continueTactics1);
+        var tactics2 = new TacticsMenu(right, side2, continueTactics2);
+
+        left.openMenu(tactics1);
+        right.openMenu(tactics2);
     }
 }
