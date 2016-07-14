@@ -222,6 +222,10 @@ class MatchState extends FlxUIState implements MenuHost {
         }
     }
 
+    public function pause() {
+        openMenu(new PauseMenu(this, this));
+    }
+
     override public function update(elapsed:Float):Void {
         if (menu == null) {
             super.update(elapsed);

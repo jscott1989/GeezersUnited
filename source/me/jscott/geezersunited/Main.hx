@@ -4,8 +4,6 @@ import flixel.FlxGame;
 import me.jscott.geezersunited.states.menustate.MenuState;
 import openfl.display.Sprite;
 
-using Reflect;
-
 class Main extends Sprite {
 	public function new() {
 		super();

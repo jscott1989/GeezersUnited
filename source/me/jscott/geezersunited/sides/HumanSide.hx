@@ -92,12 +92,17 @@ class HumanSide extends Side {
 
     public override function update(elapsed:Float) {
         controller.update(elapsed);
+
         moveControlled(elapsed);
         // Next control each player given their starting position, maximum range and individual traits
         for (p in 0...5) {
             if (selectedPlayer != p) {
                 controlPlayer(p, elapsed);
             }
+        }
+
+        if (controller.startJustPressed()) {
+            matchState.pause();
         }
     }
 }

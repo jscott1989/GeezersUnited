@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+    <include name="definitions" />
+    <sprite name="background" x="33pt" y="33pt" width="33pt" height="28pt" color="0x404040"/>
+    <text name="title" x="background.x" y="background.y+1pt" text="Pause" align="center" size="2pt" style="bold" outline="0x000000" width="background.width" />
+
+    <button id="continue" x="background.x+1pt" y="title.bottom+3pt" width="31pt" height="5pt" label="Continue">
+        <text size="2pt" />
+    </button>
+    
+    <button id="tactics" x="background.x+1pt" y="continue.bottom+2pt" width="31pt" height="5pt" label="Tactics">
+        <text size="2pt" />
+    </button>
+
+    <button id="quit" x="background.x+1pt" y="tactics.bottom+2pt" width="31pt" height="5pt" label="Quit">
+        <text size="2pt" />
+    </button>
+</data>
