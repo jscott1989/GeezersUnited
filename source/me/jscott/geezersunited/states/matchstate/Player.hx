@@ -9,10 +9,11 @@ import flixel.util.FlxSpriteUtil;
 import me.jscott.Configuration;
 import me.jscott.Utils;
 import me.jscott.geezersunited.data.PlayerDefinition;
+import me.jscott.geezersunited.data.TeamDefinition;
 
 class Player extends FlxNapeSprite {
     var matchState: MatchState;
-    var teamColor:FlxColor;
+    var team:TeamDefinition;
 
     public static var GK = "GK";
     public static var D = "D";
@@ -22,8 +23,8 @@ class Player extends FlxNapeSprite {
     public var formationPosition:FlxPoint;
     public var player:PlayerDefinition;
 
-    public function new(matchState:MatchState, player:PlayerDefinition, teamColor: FlxColor) {
-        this.teamColor = teamColor;
+    public function new(matchState:MatchState, player:PlayerDefinition, team: TeamDefinition) {
+        this.team = team;
         this.matchState = matchState;
         this.player = player;
         super(0, 0);
@@ -112,7 +113,7 @@ class Player extends FlxNapeSprite {
 
 
     function drawSprite() {
-        var c = this.teamColor;
+        var c = this.team.getColor();
         if (highlightColor != null ){
             c = highlightColor;
         }
@@ -122,6 +123,7 @@ class Player extends FlxNapeSprite {
 
         var stampText:FlxText = new FlxText(0, 0, Std.int(width), Std.string(player.getID()), 20);        
         stampText.alignment = "center";
+        stampText.color = this.team.getTextColor();
         stamp(stampText, 0, Std.int((height - stampText.height) / 2));
 
         stampText.text = player.getSurname();

@@ -68,9 +68,6 @@ class MatchState extends FlxUIState implements MenuHost {
         this.team1 = team1;
         this.team2 = team2;
 
-        pitch = new FlxSprite((FlxG.width / 2) - (Configuration.PITCH_WIDTH / 2), (FlxG.height / 2) - (Configuration.PITCH_HEIGHT / 2));
-        pitch.makeGraphic(Configuration.PITCH_WIDTH, Configuration.PITCH_HEIGHT, FlxColor.GREEN);
-
         side1 = new Side(0, this, team1);
         side2 = new Side(1, this, team2);
     }
@@ -100,6 +97,8 @@ class MatchState extends FlxUIState implements MenuHost {
 
         super.create();
 
+        pitch = new FlxSprite((FlxG.width / 2) - (Configuration.PITCH_WIDTH / 2), (FlxG.height / 2) - (Configuration.PITCH_HEIGHT / 2));
+        pitch.makeGraphic(Configuration.PITCH_WIDTH, Configuration.PITCH_HEIGHT, FlxColor.GREEN);
         add(pitch);
 
         var wallWidth = 10;

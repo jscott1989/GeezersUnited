@@ -45,7 +45,7 @@ class Data {
             for (playerID in playerIDs) {
                 teamPlayers.push(players[playerID]);
             }
-            teams.set(cast team.get("id"), new TeamDefinition(cast team.get("id"), team.get("name"), teamPlayers, formationsByName[team.get("formation")], FlxColor.fromString(team.get("color"))));
+            teams.set(cast team.get("id"), new TeamDefinition(cast team.get("id"), team.get("name"), teamPlayers, formationsByName[team.get("formation")], FlxColor.fromString(team.get("color")), FlxColor.fromString(team.get("text_color"))));
             numberOfTeams += 1;
          }
     }

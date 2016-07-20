@@ -40,7 +40,7 @@ class Side {
             positionsReversed = new Map<Player, Int>();
             var p = team.getPlayers();
             for (i in 0...10) {
-                var player = new Player(matchState, p[i], team.getColor());
+                var player = new Player(matchState, p[i], team);
                 players.push(player);
                 positions.set(i, player);
                 positionsReversed.set(player, i);
