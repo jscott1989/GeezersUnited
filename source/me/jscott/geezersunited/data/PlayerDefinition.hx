@@ -6,6 +6,10 @@ class PlayerDefinition {
 
     public function getID() { return id; }
     public function getName() { return name; }
+    public function getSurname() { 
+        var f = name.split(" ");
+        return f[f.length - 1];
+    }
 
     public function new(id:Int, name:String) {
         this.id = id;

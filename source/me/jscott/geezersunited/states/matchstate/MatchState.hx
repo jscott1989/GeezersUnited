@@ -1,27 +1,24 @@
 package me.jscott.geezersunited.states.matchstate;
 
+import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.nape.FlxNapeSpace;
 import flixel.addons.ui.FlxUIState;
+import flixel.group.FlxSpriteGroup;
+import flixel.input.gamepad.FlxGamepad;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import me.jscott.Configuration;
-import me.jscott.Utils;
 import me.jscott.geezersunited.Formation;
-import me.jscott.geezersunited.sides.AISide;
-import me.jscott.geezersunited.sides.HumanSide;
+import me.jscott.geezersunited.data.Data;
+import me.jscott.geezersunited.data.TeamDefinition;
 import me.jscott.geezersunited.sides.Side;
 import me.jscott.ui.Menu;
 import me.jscott.ui.MenuHost;
 import me.jscott.ui.controllers.Controller;
-import me.jscott.ui.controllers.KeyboardController;
 import me.jscott.ui.controllers.GamepadController;
-import flixel.input.gamepad.FlxGamepad;
-import me.jscott.geezersunited.data.TeamDefinition;
-import flixel.FlxCamera;
-import flixel.group.FlxSpriteGroup;
 
 class MatchState extends FlxUIState implements MenuHost {
 
@@ -40,14 +37,12 @@ class MatchState extends FlxUIState implements MenuHost {
     var scoreText:FlxText;
     var timeText:FlxText;
 
-    var pitch: FlxSprite;
+    public var pitch: FlxSprite;
 
     public var side1:Side;
     public var side2:Side;
 
     public var ball:Ball;
-
-    public var players= new Array<Array<Player>>();
 
     var leftGoalBase:FlxSprite;
     var rightGoalBase:FlxSprite;
@@ -72,25 +67,19 @@ class MatchState extends FlxUIState implements MenuHost {
         this.defaultController = controller;
         this.team1 = team1;
         this.team2 = team2;
+
+        pitch = new FlxSprite((FlxG.width / 2) - (Configuration.PITCH_WIDTH / 2), (FlxG.height / 2) - (Configuration.PITCH_HEIGHT / 2));
+        pitch.makeGraphic(Configuration.PITCH_WIDTH, Configuration.PITCH_HEIGHT, FlxColor.GREEN);
+
+        side1 = new Side(0, this, team1);
+        side2 = new Side(1, this, team2);
     }
 
     public function setControllers(controllers1:Array<Controller>, controllers2:Array<Controller>) {
-        if (controllers1.length == 0) {
-            side1 = new AISide(0, this);
-        } else {
-            side1 = new HumanSide(0, this, controllers1);
-        }
-
-        if (controllers2.length == 0) {
-            side2 = new AISide(1, this);
-        } else {
-            side2 = new HumanSide(1, this, controllers2);
-        }
-
-        resetState();
+        side1.setControllers(controllers1);
+        side2.setControllers(controllers2);
 
         if (!firstInitialisedTactics) {
-            firstInitialisedTactics = true;
             openTactics();
         }
     }
@@ -111,8 +100,6 @@ class MatchState extends FlxUIState implements MenuHost {
 
         super.create();
 
-        pitch = new FlxSprite((FlxG.width / 2) - (Configuration.PITCH_WIDTH / 2), (FlxG.height / 2) - (Configuration.PITCH_HEIGHT / 2));
-        pitch.makeGraphic(Configuration.PITCH_WIDTH, Configuration.PITCH_HEIGHT, FlxColor.GREEN);
         add(pitch);
 
         var wallWidth = 10;
@@ -181,61 +168,15 @@ class MatchState extends FlxUIState implements MenuHost {
         ball = new Ball(pitch.x + pitch.width / 2, pitch.y + pitch.height / 2);
         add(ball);
 
-
-        players.push(createPlayers());
-        players.push(createPlayers(true));
-
-        for (player in players[0]) {
+        for (player in side1.getPlayers()) {
             add(player);
         }
 
-        for (player in players[1]) {
+        for (player in side2.getPlayers()) {
             add(player);
         }
 
         openMenu(new SelectSideMenu(this, defaultController));
-    }
-
-    function createPlayers(isRight=false) {
-        var r = new Array<Player>();
-        for (i in 0...5) {
-            var color = isRight ? FlxColor.BLUE : FlxColor.BLACK;
-            var player = new Player(this, color, i + 1, 0, 0, 0, isRight);
-            r.push(player);
-        }
-        return r;
-    }
-
-    function setupPlayers(players:Array<Player>, formation:Formation, isRight=false) {
-        var centre = pitch.y + pitch.height / 2;
-        var startPos = pitch.x;
-        if (isRight) {
-            startPos = pitch.x + pitch.width;
-        }
-
-        for (i in 0...5) {
-            var xOffset = pitch.width * formation.points[i].x;
-            var yOffset = pitch.height * formation.points[i].y;
-
-            var x = startPos + xOffset;
-            if (isRight) {
-                x = startPos - xOffset;
-            }
-            var color = isRight ? FlxColor.BLUE : FlxColor.BLACK;
-            var y = centre + yOffset;
-            players[i].body.position.x = x;
-            players[i].body.position.y = y;
-
-            players[i].formationPosition = new FlxPoint(x, y);
-
-            if (isRight) {
-                players[i].body.rotation = Utils.degToRad(270);
-            } else {
-                players[i].body.rotation = Utils.degToRad(90);
-            }
-
-            players[i].role = formation.roles[i];
-        }
     }
 
     public function pause() {
@@ -293,21 +234,16 @@ class MatchState extends FlxUIState implements MenuHost {
     }
 
     function resetState() {
+        side1.setupPlayers(true);
+        side2.setupPlayers(true);
         inPlay = true;
-        setupPlayers(players[0], Formation.FORMATION_22);
-        setupPlayers(players[1], Formation.FORMATION_22, true);
         ball.body.position.x = pitch.x + pitch.width / 2;
         ball.body.position.y = pitch.y + pitch.height / 2;
         ball.body.angularVel = 0;
         ball.body.velocity.x = 0;
         ball.body.velocity.y = 0;
-
-        if (side1 != null) {
-            side1.resetState();
-        }
-        if (side2 != null) {
-            side2.resetState();
-        }
+        side1.resetState();
+        side2.resetState();
     }
 
     public function score(side:Int) {
@@ -395,9 +331,18 @@ class MatchState extends FlxUIState implements MenuHost {
             right.closeMenu();
             left = null;
             right = null;
+
+            side1.setupPlayers(!inPlay);
+            side2.setupPlayers(!inPlay);
+
+            if (!firstInitialisedTactics) {
+                firstInitialisedTactics = true;
+                resetState();
+            }
         }
 
-        function continueTactics1() {
+        function continueTactics1(formation:Formation) {
+            side1.formation = formation;
             if (continued2) {
                 closeTactics();
             } else {
@@ -405,7 +350,8 @@ class MatchState extends FlxUIState implements MenuHost {
             }
         }
 
-        function continueTactics2() {
+        function continueTactics2(formation:Formation) {
+            side2.formation = formation;
             if (continued1) {
                 closeTactics();
             } else {

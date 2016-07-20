@@ -1,10 +1,75 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
     <include name="definitions" />
-    <sprite name="background" x="25pt" y="25pt" width="50pt" height="50pt" color="0x404040"/>
+    <sprite name="background" x="12pt" y="20pt" width="76pt" height="95pt" color="0x404040"/>
     <text name="title" y="background.y+1pt" text="Tactics" use_def="title_text"/>
 
-    <button id="continue" x="background.x+2pt" y="title.bottom+2pt" width="46pt" height="5pt" label="Continue">
+    <button id="continue" x="background.x+2pt" y="title.bottom+2pt" width="background.width-4pt" height="5pt" label="Continue">
         <text size="2pt" />
+    </button>
+
+    <text name="formation_label" x="background.x+2pt" y="continue.bottom+1pt" text="Formation" size="2pt" />
+    <button id="formation" x="formation_label.x" y="formation_label.bottom+2pt" width="background.width-4pt" height="5pt" label="2-2">
+        <text size="2pt" />
+    </button>
+
+    <text name="player1_position" x="background.x+2pt" y="formation.bottom+5pt" width="5pt" text="GK" size="2pt" />
+    <button id="player1" x="player1_position.right+1pt" y="player1_position.y-1pt" width="background.width-12pt" height="5pt" label="Jonathan Scott">
+        <text size="2pt" />
+        <param type="int" value="0" />
+    </button>
+
+    <text name="player2_position" x="background.x+2pt" y="player1.bottom+2pt" width="5pt" text="D" size="2pt" />
+    <button id="player2" x="player2_position.right+1pt" y="player2_position.y-1pt" width="background.width-12pt" height="5pt" label="Jonathan Scott">
+        <text size="2pt" />
+        <param type="int" value="1" />
+    </button>
+
+    <text name="player3_position" x="background.x+2pt" y="player2.bottom+2pt" width="5pt" text="D" size="2pt" />
+    <button id="player3" x="player3_position.right+1pt" y="player3_position.y-1pt" width="background.width-12pt" height="5pt" label="Jonathan Scott">
+        <text size="2pt" />
+        <param type="int" value="2" />
+    </button>
+
+    <text name="player4_position" x="background.x+2pt" y="player3.bottom+2pt" width="5pt" text="A" size="2pt" />
+    <button id="player4" x="player4_position.right+1pt" y="player4_position.y-1pt" width="background.width-12pt" height="5pt" label="Jonathan Scott">
+        <text size="2pt" />
+        <param type="int" value="3" />
+    </button>
+
+    <text name="player5_position" x="background.x+2pt" y="player4.bottom+2pt" width="5pt" text="A" size="2pt" />
+    <button id="player5" x="player5_position.right+1pt" y="player5_position.y-1pt" width="background.width-12pt" height="5pt" label="Jonathan Scott">
+        <text size="2pt" />
+        <param type="int" value="4" />
+    </button>
+
+    <text name="player6_position" x="background.x+2pt" y="player5.bottom+2pt" width="5pt" text=" " size="2pt" />
+    <button id="player6" x="player6_position.right+1pt" y="player6_position.y-1pt" width="background.width-12pt" height="5pt" label="Jonathan Scott">
+        <text size="2pt" />
+        <param type="int" value="5" />
+    </button>
+
+    <text name="player7_position" x="background.x+2pt" y="player6.bottom+2pt" width="5pt" text=" " size="2pt" />
+    <button id="player7" x="player6_position.right+1pt" y="player7_position.y-1pt" width="background.width-12pt" height="5pt" label="Jonathan Scott">
+        <text size="2pt" />
+        <param type="int" value="6" />
+    </button>
+
+    <text name="player8_position" x="background.x+2pt" y="player7.bottom+2pt" width="5pt" text=" " size="2pt" />
+    <button id="player8" x="player6_position.right+1pt" y="player8_position.y-1pt" width="background.width-12pt" height="5pt" label="Jonathan Scott">
+        <text size="2pt" />
+        <param type="int" value="7" />
+    </button>
+
+    <text name="player9_position" x="background.x+2pt" y="player8.bottom+2pt" width="5pt" text=" " size="2pt" />
+    <button id="player9" x="player6_position.right+1pt" y="player9_position.y-1pt" width="background.width-12pt" height="5pt" label="Jonathan Scott">
+        <text size="2pt" />
+        <param type="int" value="8" />
+    </button>
+
+    <text name="player10_position" x="background.x+2pt" y="player9.bottom+2pt" width="5pt" text=" " size="2pt" />
+    <button id="player10" x="player6_position.right+1pt" y="player10_position.y-1pt" width="background.width-12pt" height="5pt" label="Jonathan Scott">
+        <text size="2pt" />
+        <param type="int" value="9" />
     </button>
 </data>

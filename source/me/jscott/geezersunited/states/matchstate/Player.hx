@@ -1,49 +1,37 @@
 package me.jscott.geezersunited.states.matchstate;
 
-import flixel.FlxSprite;
-import flixel.FlxG;
-import flixel.util.FlxColor;
-import me.jscott.Configuration;
-import flixel.math.FlxPoint;
-import flixel.math.FlxVelocity;
-import flixel.tweens.FlxTween;
-import flixel.addons.nape.FlxNapeSprite;
-import flixel.util.FlxSpriteUtil;
 import flixel.addons.nape.FlxNapeSpace;
-import nape.phys.BodyType;
-import flixel.addons.nape.FlxNapeVelocity;
+import flixel.addons.nape.FlxNapeSprite;
+import flixel.math.FlxPoint;
 import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import flixel.util.FlxSpriteUtil;
+import me.jscott.Configuration;
+import me.jscott.Utils;
+import me.jscott.geezersunited.data.PlayerDefinition;
 
 class Player extends FlxNapeSprite {
     var matchState: MatchState;
-    var num = 0;
     var teamColor:FlxColor;
 
-    public static var GK = 0;
-    public static var D = 1;
-    public static var M = 2;
-    public static var A = 3;
+    public static var GK = "GK";
+    public static var D = "D";
+    public static var M = "M";
+    public static var A = "A";
 
     public var formationPosition:FlxPoint;
-    public var role:Int;
+    public var player:PlayerDefinition;
 
-    public function new(matchState:MatchState, teamColor: FlxColor, num:Int, role:Int, x: Float, y: Float, isRight = false) {
+    public function new(matchState:MatchState, player:PlayerDefinition, teamColor: FlxColor) {
         this.teamColor = teamColor;
         this.matchState = matchState;
-        this.role = role;
-        this.num = num;
-        super(x, y);
+        this.player = player;
+        super(0, 0);
         
         makeGraphic(Configuration.PLAYER_WIDTH, Configuration.PLAYER_HEIGHT, FlxColor.TRANSPARENT, true);
         drawSprite();
         createCircularBody(Configuration.BALL_WIDTH / 2);
         body.space = FlxNapeSpace.space;
-
-        if (isRight) {
-            body.rotation = Utils.degToRad(270);
-        } else {
-            body.rotation = Utils.degToRad(90);
-        }
     }
 
     public function move(elapsed:Float) {
@@ -124,7 +112,6 @@ class Player extends FlxNapeSprite {
 
 
     function drawSprite() {
-
         var c = this.teamColor;
         if (highlightColor != null ){
             c = highlightColor;
@@ -133,9 +120,14 @@ class Player extends FlxNapeSprite {
         FlxSpriteUtil.drawCircle(this, Std.int(Configuration.PLAYER_WIDTH / 2), Std.int(Configuration.PLAYER_WIDTH / 2), Std.int(Configuration.BALL_WIDTH / 2), c);
         FlxSpriteUtil.drawTriangle(this, 0, 0, Configuration.PLAYER_HEIGHT, c);
 
-        var stampText:FlxText = new FlxText(0, 0, Std.int(width), Std.string(num), 20);        
+        var stampText:FlxText = new FlxText(0, 0, Std.int(width), Std.string(player.getID()), 20);        
         stampText.alignment = "center";
-        stamp(stampText, 0, Std.int((height - stampText.height) / 2));      
+        stamp(stampText, 0, Std.int((height - stampText.height) / 2));
+
+        stampText.text = player.getSurname();
+        stampText.size = 9;
+        stamp(stampText, 0, Std.int(height - stampText.height));
+
         stampText = null;
     }
 

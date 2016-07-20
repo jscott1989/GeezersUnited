@@ -39,6 +39,22 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "source/me/jscott/geezersunited/states/matchstate/TacticsMenu.hx",
+			"settings":
+			{
+				"buffer_size": 3375,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "source/me/jscott/geezersunited/sides/Side.hx",
+			"settings":
+			{
+				"buffer_size": 9343,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -54,6 +70,10 @@
 			[
 				"import",
 				"Haxe: Organize Imports"
+			],
+			[
+				"",
+				"Convert Case: Lower Case"
 			],
 			[
 				"lower",
@@ -123,44 +143,48 @@
 	[
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/sides",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate"
 	],
 	"file_history":
 	[
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/tactics.xml",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/Formation.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/sides/Side.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/data/Data.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/data/teams.yaml",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/data/TeamDefinition.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/Menu.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/sides/AISide.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/TacticsMenu.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/data/PlayerDefinition.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/sides/HumanSide.hx",
+		"/Users/jonathan/Desktop/check_up.py",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/SplitScreenMenuHost.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/PauseMenu.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/tactics.xml",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/TacticsMenu.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/Menu.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/menustate/MenuState.hx",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/select_side.xml",
+		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/menustate/MainMenu.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/pause.xml",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Ball.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/sides/Side.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/MenuHost.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/FlxNapeSpace.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/menustate/MenuState.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/Main.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/menustate/MainMenu.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/sides/HumanSide.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/definitions.xml",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/controllers/Controller.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/menustate/FriendlySelectTeamsMenu.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/data/teams.yaml",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/select_side.xml",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/SelectSideMenu.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/data/Data.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/friendly_select_teams.xml",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/data/TeamDefinition.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/data/PlayerDefinition.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/Project.xml",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/leaguestate/LeagueState.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/TeamDefinition.hx",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/leaguestate/Team.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/leaguestate/LeagueMenu.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/leaguestate.hx/LeagueMenu.hx",
@@ -184,12 +208,10 @@
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/ui/Menuable.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/Configuration.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/on_screen_keyboard.xml",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/Formation.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/states/MenuState.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/controllers/Controllable.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/controllers/Controller.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/assets/xml/menu.xml",
-		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/sides/AISide.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/Utils.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/Reg.hx",
 		"/Users/jonathan/Documents/Programming/haxe/GeezersUnited/source/me/jscott/geezersunited/controllers/Controller.hx",
@@ -258,8 +280,7 @@
 		"/Users/jonathan/Documents/Programming/python/happening/src/assets/js/edit-page.js",
 		"/Users/jonathan/Documents/Programming/python/happening/src/assets/js/blocks/form/date-time-range-widget.js",
 		"/Users/jonathan/Documents/Programming/python/happening/src/hologram_config.yml",
-		"/Users/jonathan/Documents/Programming/python/happening/src/manage.py",
-		"/Users/jonathan/Desktop/I'm ashamed of the way that the referendum debate"
+		"/Users/jonathan/Documents/Programming/python/happening/src/manage.py"
 	],
 	"find":
 	{
@@ -294,6 +315,73 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"pitch.x",
+			"setupPla",
+			"players[",
+			"selectClose",
+			"setupplayers",
+			"setupPlayers",
+			"refreshView",
+			"positions",
+			"getRole",
+			"players",
+			"setupPla",
+			"getPPP",
+			"setupPla",
+			"formationPosition",
+			"formation",
+			"add",
+			"new Side",
+			"player =",
+			"setupPlayers",
+			"trace",
+			"data",
+			"highlightColor",
+			"teamColor",
+			"pitch =",
+			"add(pla",
+			"add",
+			"colors",
+			"inPlay",
+			"inplay",
+			"setupPlayers",
+			"color: #(.+)",
+			" color: #(.+)",
+			"players",
+			"matchState.players",
+			"players\n",
+			"players",
+			"setupPla",
+			"players",
+			"selectClosest",
+			"= new Side",
+			"AISide",
+			"override",
+			"players",
+			"role",
+			"isRight",
+			"role",
+			"role:String",
+			"createPlayers",
+			"formationpositions",
+			"role",
+			"side1 =",
+			"num",
+			"drawSprite",
+			"opentac",
+			"resetState",
+			"setupPlayers",
+			"continue",
+			"color",
+			"setupPlayers",
+			"resetState",
+			"inPlay",
+			"formation",
+			"scroll",
+			"uicamera1",
+			"uiGroup1",
+			"isSplitScreen",
+			"getevent",
 			"menuhost",
 			"splitscreenmenu",
 			"getevent",
@@ -354,74 +442,7 @@
 			"movingtween",
 			"reset",
 			"color",
-			"move",
-			"move()",
-			"previousMovable",
-			"nextMovable",
-			"Moving",
-			"kickingPlayer",
-			"movingPlayer",
-			"super(",
-			"endmovement",
-			"playerendmove",
-			"power_STAT",
-			"todo",
-			".height",
-			"yOFf",
-			"xOffset",
-			"mousebutt",
-			".pop",
-			"768",
-			"PITCH_HE",
-			"PITCH_WID",
-			"GOAL_HEIGHT",
-			"PLAYER_WI",
-			"Ball_HEIG",
-			"console",
-			".columns",
-			"dispatchevent",
-			".data-table",
-			"def email(",
-			"self.user =",
-			"subject",
-			"self.subject",
-			"email",
-			"import email",
-			"from happening import forms",
-			"form",
-			"email",
-			"Event",
-			"import event",
-			"data",
-			"def send",
-			"render_email",
-			"emailuser",
-			"EmailForm",
-			"datetime",
-			"required",
-			"static",
-			"class",
-			"data_type",
-			"def email_notific",
-			"email_notifi",
-			"send",
-			"email",
-			"render_email",
-			"emailnotification",
-			"send_all",
-			"email",
-			".attr('data-b",
-			".attr(",
-			".applybind",
-			".data(",
-			".data('bin",
-			".data(\"bi",
-			"bind",
-			"viewmodel =",
-			"document.g",
-			"restore",
-			".zip",
-			"redis"
+			"move"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -429,6 +450,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"color: \"#\\1\"",
+			"color: \"\\1\"",
+			" color: \"\\1\"",
 			"\n"
 		],
 		"reverse": false,
@@ -440,8 +464,71 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "source/me/jscott/geezersunited/states/matchstate/TacticsMenu.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3375,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2699,
+								2699
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 701.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "source/me/jscott/geezersunited/sides/Side.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9343,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8901,
+								8901
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3422.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -484,7 +571,7 @@
 	"project": "GeezersUnited.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -494,12 +581,176 @@
 		"selected_items":
 		[
 			[
-				"menu.hx",
-				"GeezersUnited/source/me/jscott/ui/Menu.hx"
+				"matchstate",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
+			],
+			[
+				"side",
+				"GeezersUnited/source/me/jscott/geezersunited/sides/Side.hx"
+			],
+			[
+				"tacticsxml",
+				"GeezersUnited/assets/xml/tactics.xml"
+			],
+			[
+				"player",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx"
+			],
+			[
+				"formatio",
+				"GeezersUnited/source/me/jscott/geezersunited/Formation.hx"
+			],
+			[
+				"side.hx",
+				"GeezersUnited/source/me/jscott/geezersunited/sides/Side.hx"
 			],
 			[
 				"tacticsmenu",
 				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/TacticsMenu.hx"
+			],
+			[
+				"player.hx",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx"
+			],
+			[
+				"data",
+				"GeezersUnited/source/me/jscott/geezersunited/data/Data.hx"
+			],
+			[
+				"player.",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx"
+			],
+			[
+				"teams.",
+				"GeezersUnited/assets/data/teams.yaml"
+			],
+			[
+				"matchst",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
+			],
+			[
+				"teamde",
+				"GeezersUnited/source/me/jscott/geezersunited/data/TeamDefinition.hx"
+			],
+			[
+				"data.hx",
+				"GeezersUnited/source/me/jscott/geezersunited/data/Data.hx"
+			],
+			[
+				"teamdefi",
+				"GeezersUnited/source/me/jscott/geezersunited/data/TeamDefinition.hx"
+			],
+			[
+				"menu.hx",
+				"GeezersUnited/source/me/jscott/ui/Menu.hx"
+			],
+			[
+				"side.",
+				"GeezersUnited/source/me/jscott/geezersunited/sides/Side.hx"
+			],
+			[
+				"formation",
+				"GeezersUnited/source/me/jscott/geezersunited/Formation.hx"
+			],
+			[
+				"teams",
+				"GeezersUnited/assets/data/teams.yaml"
+			],
+			[
+				"tacticx",
+				"GeezersUnited/assets/xml/tactics.xml"
+			],
+			[
+				"teamdef",
+				"GeezersUnited/source/me/jscott/geezersunited/data/TeamDefinition.hx"
+			],
+			[
+				"team",
+				"GeezersUnited/assets/data/teams.yaml"
+			],
+			[
+				"playerde",
+				"GeezersUnited/source/me/jscott/geezersunited/data/PlayerDefinition.hx"
+			],
+			[
+				"matchs",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
+			],
+			[
+				"playerdef",
+				"GeezersUnited/source/me/jscott/geezersunited/data/PlayerDefinition.hx"
+			],
+			[
+				"ais",
+				"GeezersUnited/source/me/jscott/geezersunited/sides/AISide.hx"
+			],
+			[
+				"matchsta",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
+			],
+			[
+				"humansid",
+				"GeezersUnited/source/me/jscott/geezersunited/sides/HumanSide.hx"
+			],
+			[
+				"aiside",
+				"GeezersUnited/source/me/jscott/geezersunited/sides/AISide.hx"
+			],
+			[
+				"tactic",
+				"GeezersUnited/assets/xml/tactics.xml"
+			],
+			[
+				"fomration",
+				"GeezersUnited/source/me/jscott/geezersunited/Formation.hx"
+			],
+			[
+				"tactics",
+				"GeezersUnited/assets/xml/tactics.xml"
+			],
+			[
+				"split",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/SplitScreenMenuHost.hx"
+			],
+			[
+				"tcticsme",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/TacticsMenu.hx"
+			],
+			[
+				"humansi",
+				"GeezersUnited/source/me/jscott/geezersunited/sides/HumanSide.hx"
+			],
+			[
+				"splitscree",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/SplitScreenMenuHost.hx"
+			],
+			[
+				"matchstat",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
+			],
+			[
+				"pausemenu",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/PauseMenu.hx"
+			],
+			[
+				"menusta",
+				"GeezersUnited/source/me/jscott/geezersunited/states/menustate/MenuState.hx"
+			],
+			[
+				"side.h",
+				"GeezersUnited/source/me/jscott/geezersunited/sides/Side.hx"
+			],
+			[
+				"mainmen",
+				"GeezersUnited/source/me/jscott/geezersunited/states/menustate/MainMenu.hx"
+			],
+			[
+				"pausemneu",
+				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/PauseMenu.hx"
+			],
+			[
+				"menustate",
+				"GeezersUnited/source/me/jscott/geezersunited/states/menustate/MenuState.hx"
 			],
 			[
 				"pauseme",
@@ -510,32 +761,12 @@
 				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/SplitScreenMenuHost.hx"
 			],
 			[
-				"pausemenu",
-				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/PauseMenu.hx"
-			],
-			[
-				"tactics",
-				"GeezersUnited/assets/xml/tactics.xml"
-			],
-			[
 				"ball",
 				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Ball.hx"
 			],
 			[
-				"splitscree",
-				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/SplitScreenMenuHost.hx"
-			],
-			[
-				"side.",
-				"GeezersUnited/source/me/jscott/geezersunited/sides/Side.hx"
-			],
-			[
 				"menuho",
 				"GeezersUnited/source/me/jscott/ui/MenuHost.hx"
-			],
-			[
-				"matchstate",
-				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
 			],
 			[
 				"menuhos",
@@ -544,14 +775,6 @@
 			[
 				"main.hx",
 				"GeezersUnited/source/me/jscott/geezersunited/Main.hx"
-			],
-			[
-				"menusta",
-				"GeezersUnited/source/me/jscott/geezersunited/states/menustate/MenuState.hx"
-			],
-			[
-				"matchst",
-				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
 			],
 			[
 				"menustat",
@@ -570,20 +793,12 @@
 				"GeezersUnited/assets/xml/definitions.xml"
 			],
 			[
-				"humansi",
-				"GeezersUnited/source/me/jscott/geezersunited/sides/HumanSide.hx"
-			],
-			[
 				"controller",
 				"GeezersUnited/source/me/jscott/ui/controllers/Controller.hx"
 			],
 			[
 				"humanside",
 				"GeezersUnited/source/me/jscott/geezersunited/sides/HumanSide.hx"
-			],
-			[
-				"teams",
-				"GeezersUnited/assets/data/teams.yaml"
 			],
 			[
 				"select_si",
@@ -598,15 +813,7 @@
 				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/SelectSideMenu.hx"
 			],
 			[
-				"matchsta",
-				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
-			],
-			[
 				"data.",
-				"GeezersUnited/source/me/jscott/geezersunited/data/Data.hx"
-			],
-			[
-				"data.hx",
 				"GeezersUnited/source/me/jscott/geezersunited/data/Data.hx"
 			],
 			[
@@ -614,24 +821,12 @@
 				"GeezersUnited/assets/data/teams.yaml"
 			],
 			[
-				"teamdef",
-				"GeezersUnited/source/me/jscott/geezersunited/data/TeamDefinition.hx"
-			],
-			[
 				"friendly_",
 				"GeezersUnited/assets/xml/friendly_select_teams.xml"
 			],
 			[
-				"team",
-				"GeezersUnited/assets/data/teams.yaml"
-			],
-			[
 				".yaml",
 				"GeezersUnited/assets/data/teams.yaml"
-			],
-			[
-				"player",
-				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx"
 			],
 			[
 				"leaguestate",
@@ -648,10 +843,6 @@
 			[
 				"selectsideme",
 				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/SelectSideMenu.hx"
-			],
-			[
-				"humansid",
-				"GeezersUnited/source/me/jscott/geezersunited/sides/HumanSide.hx"
 			],
 			[
 				"menuhost",
@@ -680,10 +871,6 @@
 			[
 				"keyboardcontr",
 				"GeezersUnited/source/me/jscott/ui/controllers/KeyboardController.hx"
-			],
-			[
-				"menustate",
-				"GeezersUnited/source/me/jscott/geezersunited/states/menustate/MenuState.hx"
 			],
 			[
 				"wall",
@@ -726,10 +913,6 @@
 				"GeezersUnited/source/me/jscott/geezersunited/states/menustate/MenuState.hx"
 			],
 			[
-				"matchs",
-				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
-			],
-			[
 				"configur",
 				"GeezersUnited/source/me/jscott/Configuration.hx"
 			],
@@ -738,20 +921,8 @@
 				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx"
 			],
 			[
-				"formation",
-				"GeezersUnited/source/me/jscott/geezersunited/Formation.hx"
-			],
-			[
 				"match",
 				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
-			],
-			[
-				"formatio",
-				"GeezersUnited/source/me/jscott/geezersunited/Formation.hx"
-			],
-			[
-				"side",
-				"GeezersUnited/source/me/jscott/geezersunited/sides/Side.hx"
 			],
 			[
 				"pla",
@@ -763,10 +934,6 @@
 			],
 			[
 				"player.h",
-				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx"
-			],
-			[
-				"player.hx",
 				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx"
 			],
 			[
@@ -788,10 +955,6 @@
 			[
 				"matcs",
 				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/MatchState.hx"
-			],
-			[
-				"player.",
-				"GeezersUnited/source/me/jscott/geezersunited/states/matchstate/Player.hx"
 			],
 			[
 				"playerend",
@@ -928,82 +1091,6 @@
 			[
 				"commenthtml",
 				"happening/src/plugins/comments/templates/notifications/notifications/comments/comment.html"
-			],
-			[
-				"_notification.html",
-				"happening/src/templates/notifications/_short_notification.html"
-			],
-			[
-				"notificatio",
-				"happening-comments/src/notifications.py"
-			],
-			[
-				"happenignforms",
-				"happening-comments/src/forms.py"
-			],
-			[
-				"emailstasks",
-				"happening/src/emails/tasks.py"
-			],
-			[
-				"emailnotificati",
-				"happening/src/emails/notifications.py"
-			],
-			[
-				"notificationmodels",
-				"happening/src/notifications/models.py"
-			],
-			[
-				"emailsnotifica",
-				"happening/src/emails/notifications.py"
-			],
-			[
-				"emails__init",
-				"happening/src/emails/__init__.py"
-			],
-			[
-				"staffviews",
-				"happening/src/staff/views.py"
-			],
-			[
-				"emails.html",
-				"happening/src/templates/staff/emails.html"
-			],
-			[
-				"happeningforms.py",
-				"happening/src/happening/forms.py"
-			],
-			[
-				"forms.py",
-				"happening/src/happening/forms.py"
-			],
-			[
-				"datetimewidget",
-				"happening/src/templates/forms/widgets/datetimerange_widget.html"
-			],
-			[
-				"datetimerange_",
-				"happening/src/templates/forms/widgets/datetimerange_widget.html"
-			],
-			[
-				"datetimerange",
-				"happening/src/templates/forms/widgets/datetimerange_widget.html"
-			],
-			[
-				"toggl.js",
-				"happening/src/assets/js/blocks/toggle.js"
-			],
-			[
-				"btn.scss",
-				"happening/src/assets/sass/blocks/btn.scss"
-			],
-			[
-				".bnt",
-				"happening/src/node_modules/.bin/neat"
-			],
-			[
-				"block.scss",
-				"happening/src/assets/sass/blocks/block.scss"
 			]
 		],
 		"width": 0.0
