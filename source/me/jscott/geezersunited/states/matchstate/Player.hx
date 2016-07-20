@@ -35,8 +35,8 @@ class Player extends FlxNapeSprite {
     }
 
     public function move(elapsed:Float) {
-        body.position.y -=  Math.cos(body.rotation) * Configuration.TRAVEL_SPEED * elapsed;
-        body.position.x += Math.sin(body.rotation) * Configuration.TRAVEL_SPEED * elapsed;
+        body.position.y -=  Math.cos(body.rotation) * Configuration.TRAVEL_SPEED * player.getStatMultiplier("speed") * elapsed;
+        body.position.x += Math.sin(body.rotation) * Configuration.TRAVEL_SPEED * player.getStatMultiplier("speed") * elapsed;
     }
 
     public function moveToPoint(point: FlxPoint, angle: Float, elapsed: Float) {
@@ -74,12 +74,12 @@ class Player extends FlxNapeSprite {
             differenceDown = currentAngle - targetAngle;
         }
 
-        var newAngle = currentAngle + Configuration.ROTATION_SPEED * elapsed;
+        var newAngle = currentAngle + Configuration.ROTATION_SPEED * player.getStatMultiplier("speed") * elapsed;
         if (differenceUp > differenceDown) {
-            newAngle = currentAngle - Configuration.ROTATION_SPEED * elapsed;
+            newAngle = currentAngle - Configuration.ROTATION_SPEED * player.getStatMultiplier("speed") * elapsed;
         }
 
-        if (Math.abs(newAngle - targetAngle) < Configuration.ROTATION_SPEED * elapsed) {
+        if (Math.abs(newAngle - targetAngle) < Configuration.ROTATION_SPEED * player.getStatMultiplier("speed") * elapsed) {
             newAngle = targetAngle;
         }
 
@@ -91,7 +91,7 @@ class Player extends FlxNapeSprite {
     function canKick(elapsed:Float) {
         // Check if the ball is in front of us, but not too far
         var position = new FlxPoint(body.position.x, body.position.y);
-        var inFront = new FlxPoint(body.position.x + Math.sin(body.rotation) * Configuration.TRAVEL_SPEED * elapsed, body.position.y -  Math.cos(body.rotation) * Configuration.TRAVEL_SPEED * elapsed);
+        var inFront = new FlxPoint(body.position.x + Math.sin(body.rotation) * Configuration.TRAVEL_SPEED * player.getStatMultiplier("speed") * elapsed, body.position.y -  Math.cos(body.rotation) * Configuration.TRAVEL_SPEED * player.getStatMultiplier("speed") * elapsed);
         var ballPosition = new FlxPoint(matchState.ball.body.position.x, matchState.ball.body.position.y);
 
         if (inFront.distanceTo(ballPosition) < position.distanceTo(ballPosition)) {
@@ -104,7 +104,7 @@ class Player extends FlxNapeSprite {
 
     public function kick(elapsed:Float) {
         if (canKick(elapsed)) {
-            matchState.ball.kick(body.rotation);
+            matchState.ball.kick(body.rotation, player.getStatMultiplier("power"));
         } else {
             trace("Fall over/miss kick");
         }

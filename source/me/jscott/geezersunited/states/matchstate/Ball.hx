@@ -27,8 +27,8 @@ class Ball extends FlxNapeSprite {
         		setDrag(0.99, 0.99);
 	}
 
-        public function kick(angle:Float) {
-                body.velocity.y = 0 - Math.cos(angle) * Configuration.KICK_SPEED;
-                body.velocity.x = Math.sin(angle) * Configuration.KICK_SPEED;
+        public function kick(angle:Float, power:Float) {
+                body.velocity.y = 0 - Math.cos(angle) * Configuration.KICK_SPEED * power;
+                body.velocity.x = Math.sin(angle) * Configuration.KICK_SPEED * power;
         }
 }

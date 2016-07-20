@@ -26,7 +26,11 @@ class Data {
          var data:AnyObjectMap = Yaml.read("assets/data/teams.yaml");
          var p:Array<Dynamic> = cast data.get("players");
          for (player in p) {
-            players.set(cast player.get("id"), new PlayerDefinition(cast player.get("id"), player.get("name")));
+            var stats = new Map<String, Int>();
+            for (k in Configuration.STATS) {
+                stats[k] = cast player.get("stats").get(k);
+            }
+            players.set(cast player.get("id"), new PlayerDefinition(cast player.get("id"), player.get("name"), stats));
          }
 
          var formationsByName = new Map<String, Formation>();
