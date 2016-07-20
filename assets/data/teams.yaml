@@ -261,57 +261,77 @@ players:
     stats:
       speed: 1
       power: 10
+      max_energy: 70
+      stamina: 10
   -
     id: 2
     name: Tom Blount
     stats:
       speed: 10
       power: 10
+      max_energy: 30
+      stamina: 10
   -
     id: 3
     name: Rikki Prince
     stats:
       speed: 10
       power: 10
+      max_energy: 30
+      stamina: 10
   -
     id: 4
     name: Charlie Hargood
     stats:
       speed: 10
       power: 10
+      max_energy: 30
+      stamina: 10
   -
     id: 5
     name: Xiyun Weng
     stats:
       speed: 10
       power: 1
+      max_energy: 30
+      stamina: 10
   -
     id: 6
     name: Zico
     stats:
       speed: 10
       power: 10
+      max_energy: 30
+      stamina: 10
   -
     id: 7
     name: Marco Van Basten
     stats:
       speed: 10
       power: 10
+      max_energy: 30
+      stamina: 10
   -
     id: 8
     name: Romario
     stats:
       speed: 10
       power: 10
+      max_energy: 30
+      stamina: 10
   -
     id: 9
     name: Lev Yashin
     stats:
       speed: 10
       power: 10
+      max_energy: 30
+      stamina: 10
   -
     id: 10
     name: Jose Andrade
     stats:
       speed: 10
       power: 10
+      max_energy: 30
+      stamina: 10

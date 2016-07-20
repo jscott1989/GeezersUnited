@@ -124,6 +124,7 @@ class Side {
         }
 
         var targetAngle = this.controller.getAnalogAngle();
+        var acted = false;
 
         if (targetAngle != null) {
             if (ignoredSelections.length > 0) {
@@ -136,6 +137,7 @@ class Side {
             } else {
                 positions[selectedPlayer].moveTowards(targetAngle, elapsed);
             }
+            acted = true;
         }
 
         if (this.controller.xJustPressed()) {
@@ -143,6 +145,11 @@ class Side {
                 ignoredSelections = new Array<Player>();
             }
             positions[selectedPlayer].kick(elapsed);
+            acted = true;
+        }
+
+        if (!acted) {
+            positions[selectedPlayer].rest(elapsed);
         }
     }
 
@@ -252,6 +259,9 @@ class Side {
                     var targetPosition = new FlxPoint(pitch.x + pitch.width / 2, pitch.y);
                     positions[p].moveToPoint(targetPosition, 0, elapsed);
                 }
+            } else {
+                // Sitting on bench
+                positions[p].rest(elapsed, true);
             }
         }
     }

@@ -23,21 +23,46 @@ class Player extends FlxNapeSprite {
     public var formationPosition:FlxPoint;
     public var player:PlayerDefinition;
 
+    var energy:Float;
+
     public function new(matchState:MatchState, player:PlayerDefinition, team: TeamDefinition) {
         this.team = team;
         this.matchState = matchState;
         this.player = player;
         super(0, 0);
-        
-        makeGraphic(Configuration.PLAYER_WIDTH, Configuration.PLAYER_HEIGHT, FlxColor.TRANSPARENT, true);
+
+        energy = player.getStat("max_energy");
+
+        makeGraphic(Configuration.PLAYER_WIDTH, Configuration.PLAYER_HEIGHT + 50, FlxColor.TRANSPARENT, true);
         drawSprite();
         createCircularBody(Configuration.BALL_WIDTH / 2);
         body.space = FlxNapeSpace.space;
     }
 
+    public function rest(elapsed:Float, benched=false) {
+        var old_energy = energy;
+
+        var multiplier = 1;
+        if (benched) {
+            multiplier = 3;
+        }
+
+        energy += Configuration.ENERGY_RECOVERY * elapsed * multiplier;
+        if (energy > player.getStat("max_energy")) {
+            energy = player.getStat("max_energy");
+        }
+
+        if (old_energy != energy) {
+            drawEnergy();
+        }
+    }
+
     public function move(elapsed:Float) {
         body.position.y -=  Math.cos(body.rotation) * Configuration.TRAVEL_SPEED * player.getStatMultiplier("speed") * elapsed;
         body.position.x += Math.sin(body.rotation) * Configuration.TRAVEL_SPEED * player.getStatMultiplier("speed") * elapsed;
+
+        energy -= Configuration.ENERGY_USE_MOVE * player.getStatMultiplier("stamina") * elapsed;
+        drawEnergy();
     }
 
     public function moveToPoint(point: FlxPoint, angle: Float, elapsed: Float) {
@@ -46,7 +71,9 @@ class Player extends FlxNapeSprite {
             var angle = Utils.normaliseAngle(myPosition.angleBetween(point));
             moveTowards(angle, elapsed);
         } else {
-            turnTowards(angle, elapsed);
+            if (!(turnTowards(angle, elapsed))) {
+                rest(elapsed);
+            }
         }
     }
 
@@ -75,6 +102,11 @@ class Player extends FlxNapeSprite {
             differenceDown = currentAngle - targetAngle;
         }
 
+        if (differenceUp < Configuration.ROTATION_REST || differenceDown < Configuration.ROTATION_REST) {
+            // Don't bother turning - close enough
+            return false;
+        }
+
         var newAngle = currentAngle + Configuration.ROTATION_SPEED * player.getStatMultiplier("speed") * elapsed;
         if (differenceUp > differenceDown) {
             newAngle = currentAngle - Configuration.ROTATION_SPEED * player.getStatMultiplier("speed") * elapsed;
@@ -84,9 +116,13 @@ class Player extends FlxNapeSprite {
             newAngle = targetAngle;
         }
 
-        newAngle = Utils.normaliseAngle(newAngle);
 
+        newAngle = Utils.normaliseAngle(newAngle);
         body.rotation = Utils.degToRad(newAngle);
+
+        energy -= Configuration.ENERGY_USE_TURN * player.getStatMultiplier("stamina") * elapsed;
+        drawEnergy();
+        return true;
     }
 
     function canKick(elapsed:Float) {
@@ -109,6 +145,8 @@ class Player extends FlxNapeSprite {
         } else {
             trace("Fall over/miss kick");
         }
+        energy -= Configuration.ENERGY_USE_KICK * player.getStatMultiplier("stamina");
+        drawEnergy();
     }
 
 
@@ -118,19 +156,27 @@ class Player extends FlxNapeSprite {
             c = highlightColor;
         }
 
-        FlxSpriteUtil.drawCircle(this, Std.int(Configuration.PLAYER_WIDTH / 2), Std.int(Configuration.PLAYER_WIDTH / 2), Std.int(Configuration.BALL_WIDTH / 2), c);
+        FlxSpriteUtil.drawCircle(this, Std.int(Configuration.PLAYER_WIDTH / 2), Std.int(Configuration.PLAYER_HEIGHT / 2), Std.int(Configuration.BALL_WIDTH / 2), c);
         FlxSpriteUtil.drawTriangle(this, 0, 0, Configuration.PLAYER_HEIGHT, c);
 
-        var stampText:FlxText = new FlxText(0, 0, Std.int(width), Std.string(player.getID()), 20);        
+        var stampText:FlxText = new FlxText(0, 0, Std.int(Configuration.PLAYER_WIDTH), Std.string(player.getID()), 20);        
         stampText.alignment = "center";
         stampText.color = this.team.getTextColor();
-        stamp(stampText, 0, Std.int((height - stampText.height) / 2));
+        stamp(stampText, 0, Std.int((Configuration.PLAYER_HEIGHT - stampText.height) / 2));
 
         stampText.text = player.getSurname();
         stampText.size = 9;
-        stamp(stampText, 0, Std.int(height - stampText.height));
+        stamp(stampText, 0, Std.int(Configuration.PLAYER_HEIGHT - stampText.height));
 
         stampText = null;
+
+        drawEnergy();
+    }
+
+    function drawEnergy() {
+        FlxSpriteUtil.drawRect(this, 0, Configuration.PLAYER_HEIGHT + 5, player.getStat("max_energy") * (Configuration.PLAYER_WIDTH/100), 10, FlxColor.RED);
+        FlxSpriteUtil.drawRect(this, 0, Configuration.PLAYER_HEIGHT + 5, energy * (Configuration.PLAYER_WIDTH/100), 10, FlxColor.BLUE);
+        FlxSpriteUtil.drawRect(this, 0, Configuration.PLAYER_HEIGHT + 5, Configuration.PLAYER_WIDTH - 1, 10, FlxColor.TRANSPARENT, {color: FlxColor.WHITE});
     }
 
     override public function update(elapsed:Float) {

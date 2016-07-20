@@ -15,13 +15,19 @@ class Configuration {
     public static inline var PITCH_WIDTH = 800;
     public static inline var PITCH_HEIGHT = Std.int(PITCH_WIDTH * (2/5));
 
+    public static inline var ROTATION_REST = 2;
     public static inline var ROTATION_SPEED = 500;
     public static inline var TRAVEL_SPEED = 500;
     public static inline var KICK_SPEED = 2500;
     public static inline var KICK_DISTANCE = 64;
 
+    public static inline var ENERGY_USE_MOVE = 10;
+    public static inline var ENERGY_USE_TURN = 4;
+    public static inline var ENERGY_USE_KICK = 10;
+    public static inline var ENERGY_RECOVERY = 0.5;
+
     public static inline var HOLD_REPEAT_TIMEOUT = 0.5;
 
-    public static var STATS = ["speed", "power"];
+    public static var STATS = ["speed", "power", "max_energy", "stamina"];
 
 }
