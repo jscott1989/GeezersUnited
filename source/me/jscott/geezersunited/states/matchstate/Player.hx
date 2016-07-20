@@ -23,6 +23,7 @@ class Player extends FlxNapeSprite {
     public var formationPosition:FlxPoint;
     public var player:PlayerDefinition;
 
+    var isTired = false;
     var energy:Float;
 
     public function new(matchState:MatchState, player:PlayerDefinition, team: TeamDefinition) {
@@ -39,17 +40,18 @@ class Player extends FlxNapeSprite {
         body.space = FlxNapeSpace.space;
     }
 
-    public function rest(elapsed:Float, benched=false) {
+    function changeEnergy(modifier:Float) {
         var old_energy = energy;
 
-        var multiplier = 1;
-        if (benched) {
-            multiplier = 3;
-        }
+        energy += modifier;
 
-        energy += Configuration.ENERGY_RECOVERY * elapsed * multiplier;
         if (energy > player.getStat("max_energy")) {
             energy = player.getStat("max_energy");
+        } else if (energy < 0) {
+            isTired = true;
+            energy = 0;
+        } else if (isTired && energy >= Configuration.TIRED_TIMEOUT) {
+            isTired = false;
         }
 
         if (old_energy != energy) {
@@ -57,16 +59,31 @@ class Player extends FlxNapeSprite {
         }
     }
 
-    public function move(elapsed:Float) {
-        body.position.y -=  Math.cos(body.rotation) * Configuration.TRAVEL_SPEED * player.getStatMultiplier("speed") * elapsed;
-        body.position.x += Math.sin(body.rotation) * Configuration.TRAVEL_SPEED * player.getStatMultiplier("speed") * elapsed;
+    public function rest(elapsed:Float, benched=false) {
+        var multiplier = 1;
+        if (benched) {
+            multiplier = 3;
+        }
 
-        energy -= Configuration.ENERGY_USE_MOVE * player.getStatMultiplier("stamina") * elapsed;
-        drawEnergy();
+        changeEnergy(Configuration.ENERGY_RECOVERY * elapsed * multiplier);
+    }
+
+    public function move(elapsed:Float) {
+        if (!isTired) {
+            body.position.y -=  Math.cos(body.rotation) * Configuration.TRAVEL_SPEED * player.getStatMultiplier("speed") * elapsed;
+            body.position.x += Math.sin(body.rotation) * Configuration.TRAVEL_SPEED * player.getStatMultiplier("speed") * elapsed;
+
+            changeEnergy(0 - (Configuration.ENERGY_USE_MOVE * player.getStatMultiplier("stamina") * elapsed));
+            drawEnergy();
+        }
     }
 
     public function moveToPoint(point: FlxPoint, angle: Float, elapsed: Float) {
         var myPosition = new FlxPoint(body.position.x, body.position.y);
+        if (isTired) {
+            rest(elapsed);
+            return;
+        }
         if (point.distanceTo(myPosition) > 5) {
             var angle = Utils.normaliseAngle(myPosition.angleBetween(point));
             moveTowards(angle, elapsed);
@@ -83,7 +100,18 @@ class Player extends FlxNapeSprite {
         currentAngle = Utils.normaliseAngle(currentAngle);
         targetAngle = Utils.normaliseAngle(targetAngle);
 
-        if (Math.abs(currentAngle - targetAngle) < 5) {
+        var differenceUp = targetAngle - currentAngle;
+        var differenceDown = currentAngle + 360 - targetAngle;
+        if (targetAngle < currentAngle) {
+            differenceUp = targetAngle + 360 - currentAngle;
+            differenceDown = currentAngle - targetAngle;
+        }
+        var difference = differenceUp;
+        if (differenceDown < difference) {
+            difference = differenceDown;
+        }
+
+        if (difference < Configuration.ROTATION_REST) {
             move(elapsed);
         } else {
             turnTowards(targetAngle, elapsed);
@@ -91,38 +119,41 @@ class Player extends FlxNapeSprite {
     }
 
     public function turnTowards(targetAngle: Float, elapsed: Float) {
-        targetAngle = Utils.normaliseAngle(targetAngle);
+        if (!isTired) {
+            targetAngle = Utils.normaliseAngle(targetAngle);
 
-        var currentAngle = Utils.radToDeg(body.rotation);
-        // We need to figure out if it's quicker to go down or up
-        var differenceUp = targetAngle - currentAngle;
-        var differenceDown = currentAngle + 360 - targetAngle;
-        if (targetAngle < currentAngle) {
-            differenceUp = targetAngle + 360 - currentAngle;
-            differenceDown = currentAngle - targetAngle;
+            var currentAngle = Utils.radToDeg(body.rotation);
+            // We need to figure out if it's quicker to go down or up
+            var differenceUp = targetAngle - currentAngle;
+            var differenceDown = currentAngle + 360 - targetAngle;
+            if (targetAngle < currentAngle) {
+                differenceUp = targetAngle + 360 - currentAngle;
+                differenceDown = currentAngle - targetAngle;
+            }
+
+            if (differenceUp < Configuration.ROTATION_REST || differenceDown < Configuration.ROTATION_REST) {
+                // Don't bother turning - close enough
+                return false;
+            }
+
+            var newAngle = currentAngle + Configuration.ROTATION_SPEED * player.getStatMultiplier("speed") * elapsed;
+            if (differenceUp > differenceDown) {
+                newAngle = currentAngle - Configuration.ROTATION_SPEED * player.getStatMultiplier("speed") * elapsed;
+            }
+
+            if (Math.abs(newAngle - targetAngle) < Configuration.ROTATION_SPEED * player.getStatMultiplier("speed") * elapsed) {
+                newAngle = targetAngle;
+            }
+
+
+            newAngle = Utils.normaliseAngle(newAngle);
+            body.rotation = Utils.degToRad(newAngle);
+
+            changeEnergy(0 - (Configuration.ENERGY_USE_TURN * player.getStatMultiplier("stamina") * elapsed));
+            drawEnergy();
+            return true;
         }
-
-        if (differenceUp < Configuration.ROTATION_REST || differenceDown < Configuration.ROTATION_REST) {
-            // Don't bother turning - close enough
-            return false;
-        }
-
-        var newAngle = currentAngle + Configuration.ROTATION_SPEED * player.getStatMultiplier("speed") * elapsed;
-        if (differenceUp > differenceDown) {
-            newAngle = currentAngle - Configuration.ROTATION_SPEED * player.getStatMultiplier("speed") * elapsed;
-        }
-
-        if (Math.abs(newAngle - targetAngle) < Configuration.ROTATION_SPEED * player.getStatMultiplier("speed") * elapsed) {
-            newAngle = targetAngle;
-        }
-
-
-        newAngle = Utils.normaliseAngle(newAngle);
-        body.rotation = Utils.degToRad(newAngle);
-
-        energy -= Configuration.ENERGY_USE_TURN * player.getStatMultiplier("stamina") * elapsed;
-        drawEnergy();
-        return true;
+        return false;
     }
 
     function canKick(elapsed:Float) {
@@ -140,13 +171,15 @@ class Player extends FlxNapeSprite {
     }
 
     public function kick(elapsed:Float) {
-        if (canKick(elapsed)) {
-            matchState.ball.kick(body.rotation, player.getStatMultiplier("power"));
-        } else {
-            trace("Fall over/miss kick");
+        if (!isTired) {
+            if (canKick(elapsed)) {
+                matchState.ball.kick(body.rotation, player.getStatMultiplier("power"));
+            } else {
+                trace("Fall over/miss kick");
+            }
+            changeEnergy(0 - (Configuration.ENERGY_USE_KICK * player.getStatMultiplier("stamina")));
+            drawEnergy();
         }
-        energy -= Configuration.ENERGY_USE_KICK * player.getStatMultiplier("stamina");
-        drawEnergy();
     }
 
 
@@ -174,8 +207,13 @@ class Player extends FlxNapeSprite {
     }
 
     function drawEnergy() {
-        FlxSpriteUtil.drawRect(this, 0, Configuration.PLAYER_HEIGHT + 5, player.getStat("max_energy") * (Configuration.PLAYER_WIDTH/100), 10, FlxColor.RED);
-        FlxSpriteUtil.drawRect(this, 0, Configuration.PLAYER_HEIGHT + 5, energy * (Configuration.PLAYER_WIDTH/100), 10, FlxColor.BLUE);
+        FlxSpriteUtil.drawRect(this, 0, Configuration.PLAYER_HEIGHT + 5, player.getStat("max_energy") * (Configuration.PLAYER_WIDTH/100), 10, FlxColor.WHITE);
+
+        var colour = FlxColor.BLUE;
+        if (isTired) {
+            colour = FlxColor.RED;
+        }
+        FlxSpriteUtil.drawRect(this, 0, Configuration.PLAYER_HEIGHT + 5, energy * (Configuration.PLAYER_WIDTH/100), 10, colour);
         FlxSpriteUtil.drawRect(this, 0, Configuration.PLAYER_HEIGHT + 5, Configuration.PLAYER_WIDTH - 1, 10, FlxColor.TRANSPARENT, {color: FlxColor.WHITE});
     }
 

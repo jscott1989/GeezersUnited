@@ -28,6 +28,9 @@ class Configuration {
 
     public static inline var HOLD_REPEAT_TIMEOUT = 0.5;
 
+
+    public static inline var TIRED_TIMEOUT = 10;
+
     public static var STATS = ["speed", "power", "max_energy", "stamina"];
 
 }
